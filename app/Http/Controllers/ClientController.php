@@ -3,20 +3,39 @@
 namespace CodeProject\Http\Controllers;
 
 use Illuminate\Http\Request;
-use CodeProject\Http\Requests;
-use CodeProject\Http\Controllers\Controller;
-use CodeProject\Client;
+use CodeProject\Repositories\ClientRepository;
+use CodeProject\Services\ClientService;
 
 class ClientController extends Controller
 {
+
+    /**
+    * @var ClientRepository
+    */
+    private $repository;
+
+    /**
+    * @var ClientService
+    */
+    private $service;
+
+    /**
+    * @param ClientRepository $repository
+    * @param ClientService $service
+    */
+    public function __construct(ClientRepository $repository, ClientService $service){
+        $this->repository   = $repository;
+        $this->service      = $service;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Client::all();
+     */    
+    public function index(){
+        return $this->repository->all();
     }
 
     /**
@@ -36,7 +55,7 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        return Client::create($request->all());
+        return $this->service->create($request->all());
     }
 
     /**
@@ -47,7 +66,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        return Client::find($id);
+        return $this->repository->find($id);
     }
 
     /**
@@ -68,9 +87,8 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        return $this->service->update($request->all(), $id);
     }
 
     /**
@@ -79,8 +97,7 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        Client::find($id)->delete();
+    public function destroy($id){
+        $this->repository->delete($id);
     }
 }
