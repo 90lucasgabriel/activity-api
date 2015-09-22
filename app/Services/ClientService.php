@@ -25,9 +25,8 @@ class ClientService{
 	//Ao passar os dados do cliente, criá-lo.
 	public function create(array $data){
 		try{
-			dd($this->validator->with($data)->passesOrFail());
-			//$this->validator->with($data)->passesOrFail();
-			//return $this->repository->create($data);
+			$this->validator->with($data)->passesOrFail();
+			return $this->repository->create($data);
 		}
 		catch(ValidatorException $e){
 			return [
@@ -44,8 +43,8 @@ class ClientService{
 		}
 		catch(ValidatorException $e){
 			return [
-				'error' => true,
-				'message' => $e->getMessageBag()
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
 			];
 		}
 	}
