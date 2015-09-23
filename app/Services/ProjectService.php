@@ -8,21 +8,21 @@ use Prettus\Validator\Exceptions\ValidatorException;
 
 class ProjectService{
 	/**
-	* @var ClientRespository
+	* @var ProjectRespository
 	*/
 	protected $repository;
 
 	/**
-	* @var ClientValidator
+	* @var ProjectValidator
 	*/
 	protected $validator;
 
-	public function __construct(ProjectService $repository, ProjectValidator $validator){
+	public function __construct(ProjectRepository $repository, ProjectValidator $validator){
 		$this->repository 	= $repository;
 		$this->validator 	= $validator;
 	}
 
-	//Ao passar os dados do cliente, criá-lo.
+	//Ao passar os dados do Projecte, criá-lo.
 	public function create(array $data){
 		try{
 			$this->validator->with($data)->passesOrFail();

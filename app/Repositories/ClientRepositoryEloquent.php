@@ -1,4 +1,5 @@
 <?php
+
 namespace CodeProject\Repositories;
 
 use CodeProject\Entities\Client;

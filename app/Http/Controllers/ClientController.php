@@ -98,6 +98,6 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        return $this->repository->delete($id);
+        return $this->service->destroy($id);
     }
 }

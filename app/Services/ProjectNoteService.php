@@ -2,27 +2,27 @@
 
 namespace CodeProject\Services;
 
-use CodeProject\Repositories\ClientRepository;
-use CodeProject\Validators\ClientValidator;
+use CodeProject\Repositories\ProjectNoteRepository;
+use CodeProject\Validators\ProjectNoteValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
-class ClientService{
+class ProjectNoteService{
 	/**
-	* @var ClientRespository
+	* @var ProjectNoteRespository
 	*/
 	protected $repository;
 
 	/**
-	* @var ClientValidator
+	* @var ProjectNoteValidator
 	*/
 	protected $validator;
 
-	public function __construct(ClientRepository $repository, ClientValidator $validator){
+	public function __construct(ProjectNoteRepository $repository, ProjectNoteValidator $validator){
 		$this->repository 	= $repository;
 		$this->validator 	= $validator;
 	}
 
-	//Ao passar os dados do cliente, criá-lo.
+	//Ao passar os dados do ProjectNotee, criá-lo.
 	public function create(array $data){
 		try{
 			$this->validator->with($data)->passesOrFail();
@@ -48,22 +48,4 @@ class ClientService{
 			];
 		}
 	}
-
-	public function destroy($id){
-		try{
-			if($this->repository->delete($id)){
-				return "Valor excluído com sucesso";
-			}
-			else{
-				return "Erro ao excluir";
-			}
-		}
-		catch(Exception $e){
-			return [
-				'error' 	=> true,
-				'message'	=> $e->getMessageBag()
-			];
-		}
-	}
-
 }

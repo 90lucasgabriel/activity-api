@@ -1,9 +1,9 @@
 <?php
 namespace CodeProject\Repositories;
 
-use CodeProject\Entities\Project;
+use CodeProject\Entities\ProjectNote;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
-interface ProjectRepository extends RepositoryInterface{
+interface ProjectNoteRepository extends RepositoryInterface{
 
 }
