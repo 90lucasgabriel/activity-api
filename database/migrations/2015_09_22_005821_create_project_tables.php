@@ -21,11 +21,13 @@ class CreateProjectTables extends Migration
             $table->smallInteger('status')->unsiged();
             $table->date('due_date');
             $table->timestamps();
-            $table->foreign('owner_id')->references('id')->on('clients');
-            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('owner_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
 
         });
     }
+
+    
 
     /**
      * Reverse the migrations.

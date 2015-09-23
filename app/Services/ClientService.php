@@ -52,10 +52,10 @@ class ClientService{
 	public function destroy($id){
 		try{
 			if($this->repository->delete($id)){
-				return "Valor excluído com sucesso";
+				return ['success'=>true];
 			}
 			else{
-				return "Erro ao excluir";
+				return ['success'=>false];
 			}
 		}
 		catch(Exception $e){
