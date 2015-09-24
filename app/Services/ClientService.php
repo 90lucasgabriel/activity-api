@@ -50,20 +50,13 @@ class ClientService{
 	}
 
 	public function destroy($id){
-		try{
-			if($this->repository->delete($id)){
-				return ['success'=>true];
-			}
-			else{
-				return ['success'=>false];
-			}
+		if($this->repository->delete($id)){
+			return ['success'=>true];
 		}
-		catch(Exception $e){
-			return [
-				'error' 	=> true,
-				'message'	=> $e->getMessageBag()
-			];
+		else{
+			return ['success'=>false];
 		}
 	}
+	
 
 }
