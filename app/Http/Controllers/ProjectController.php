@@ -38,6 +38,7 @@ class ProjectController extends Controller
     }
 
     public function show($id)    {
+        
         if($this->checkProjectPermissions($id)==false){
             return ['error' => 'Access Forbidden'];
         }
@@ -63,9 +64,12 @@ class ProjectController extends Controller
     }
 
     private function checkProjectPermissions($projectId){
+        $this->repository->skipPresenter(true);
         if($this->checkProjectOwner($projectId) or $this->checkProjectMember($projectId)){
+            $this->repository->skipPresenter(false);
             return true;
         }
+
         return false;
     }
 }
