@@ -8,6 +8,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 use CodeProject\Entities\ProjectNote;
 use CodeProject\Entities\User;
 use CodeProject\Entities\ProjectFile;
+use CodeProject\Entities\Client;
 
 class Project extends Model implements Transformable
 {
@@ -22,6 +23,14 @@ class Project extends Model implements Transformable
     'status',
     'due_date'
     ];
+
+    public function client(){
+        return $this->belongsTo(Client::class, 'client_id');
+    }
+
+    public function owner(){
+        return $this->belongsTo(User::class, 'owner_id');
+    }
 
     public function notes(){
     	return $this->hasMany(ProjectNote::class);

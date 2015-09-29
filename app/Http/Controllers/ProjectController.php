@@ -30,19 +30,19 @@ class ProjectController extends Controller
 
     public function index(){
 
-        return $this->repository->findWhere(['owner_id'=>\Authorizer::getResourceOwnerId()]);
+        return $this->repository->skipPresenter()->with(['members', 'client', 'owner'])->findWhere(['owner_id'=>\Authorizer::getResourceOwnerId()]);
     }
 
     public function store(Request $request){
         return $this->service->create($request->all());
     }
 
-    public function show($id)    {
+    public function show($id){
         
         if($this->checkProjectPermissions($id)==false){
             return ['error' => 'Access Forbidden'];
         }
-        return $this->repository->find($id);
+        return $this->repository->skipPresenter()->with(['members', 'client', 'owner'])->find($id);
     }
 
     public function update(Request $request, $id){
