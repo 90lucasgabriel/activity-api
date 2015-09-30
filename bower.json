@@ -1,0 +1,29 @@
+{
+  "name": "laravel-codeproject-frontend",
+  "version": "0.5.1",
+  "homepage": "https://github.com/90lucasgabriel/activity",
+  "authors": [
+    "Lucas Gabriel <90lucasgabriel@gmail.com>"
+  ],
+  "description": "Frontend de gerenciador de projetos",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.6",
+    "angular-route": "~1.4.6",
+    "angular-resource": "~1.4.6",
+    "angular-animate": "~1.4.6",
+    "angular-messages": "~1.4.6",
+    "angular-bootstrap": "~0.13.4",
+    "angular-strap": "~2.3.3",
+    "bootstrap": "~3.3.5"
+  }
+}
