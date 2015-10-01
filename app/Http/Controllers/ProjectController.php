@@ -29,8 +29,7 @@ class ProjectController extends Controller
     }
 
     public function index(){
-
-        return $this->repository->skipPresenter()->with(['members', 'client', 'owner'])->findWhere(['owner_id'=>\Authorizer::getResourceOwnerId()]);
+       return $this->repository->skipPresenter()->with(['members', 'client', 'owner'])->findWhere(['owner_id'=>\Authorizer::getResourceOwnerId()]);
     }
 
     public function store(Request $request){

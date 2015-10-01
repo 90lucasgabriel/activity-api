@@ -1,3 +1,4 @@
+/*Requires ----------------------------------------------*/
 var elixir 		= require('laravel-elixir'),
 	liveReload 	= require('gulp-livereload'),
 	clean 		= require('rimraf'),
@@ -5,20 +6,27 @@ var elixir 		= require('laravel-elixir'),
 
 
 
-/* assets_path é o caminho da pasta assets
-build_path é o caminho da pasta assets no modo produção*/
+/*Config ------------------------------------------------*/
 var config = {
 	assets_path: './resources/assets',
 	build_path: './public/build',
 	public_path: './public'
 };
 
-/*aula com '/../bower_components'*/
-config.bower_path = config.assets_path + '/../../bower_components';
 
-/*definições de Js e CSS*/
-config.build_path_js = config.build_path + '/js';
-config.build_vendor_path_js = config.build_path_js + '/vendor';
+
+/*Path ---------------------------------------------------*/
+/* test '/../bower_components'*/
+config.bower_path 				= config.assets_path + '/../../bower_components';
+config.build_path_js 			= config.build_path + '/js';
+config.build_vendor_path_js 	= config.build_path_js + '/vendor';
+config.build_path_css 			= config.build_path + '/css';
+config.build_vendor_path_css 	= config.build_path_css + '/vendor';
+config.build_path_html 			= config.build_path + '/views';
+
+
+
+/*Dependencies --------------------------------------------*/
 config.vendor_path_js = [
 	config.bower_path + '/jquery/dist/jquery.min.js',
 	config.bower_path + '/bootstrap/dist/js/bootstrap.min.js',
@@ -31,12 +39,22 @@ config.vendor_path_js = [
 	config.bower_path + '/angular-strap/dist/modules/navbar.min.js',
 ];
 
-config.build_path_css = config.build_path + '/css';
-config.build_vendor_path_css = config.build_path_css + '/vendor';
 config.vendor_path_css = [
 	config.bower_path + '/bootstrap/dist/css/bootstrap.min.css',
 	config.bower_path + '/bootstrap/dist/css/bootstrap-theme.min.css',
 ];
+
+
+
+
+/*Tasks ------------------------------------------------*/
+gulp.task('copy-html', function(){
+	gulp.src([
+		config.assets_path + '/js/views/**/*.html'
+		])
+	.pipe(gulp.dest(config.build_path_html))
+	.pipe(liveReload());
+});
 
 gulp.task('copy-styles', function(){
 	/*autorais*/
@@ -64,7 +82,7 @@ gulp.task('copy-scripts', function(){
 	gulp.src(config.vendor_path_js)
 	.pipe(gulp.dest(config.build_vendor_path_js))
 	.pipe(liveReload());
-	console.log(config.vendor_path_js);
+	//console.log(config.vendor_path_js);
 });
 
 gulp.task('clear-build-folder', function(){
@@ -76,26 +94,23 @@ gulp.task('clear-public-css-js-folder', function(){
 	clean.sync(config.public_path + '/js');
 });
 
+
+
+
+
+
+/*Tasks Dev and Default -------------------------------------*/
 gulp.task('watch-dev', function(){
 	liveReload.listen();
 	gulp.start('copy-styles', 'copy-scripts');
-	gulp.watch(config.assets_path + '/**', ['copy-styles', 'copy-scripts']);
-	gulp.start('clear-public-css-js-folder');
+	gulp.watch(config.assets_path + '/**', ['copy-styles', 'copy-scripts', 'copy-html']);
 });
 
 gulp.task('default', ['clear-build-folder'], function(){
+	gulp.start('copy-html');
 	elixir(function(mix){
-		mix.styles(config.vendor_path_css.concat([config.assets_path + '/css/**/*.css']),
-			'public/css/all.css', config.assets_path);
-		mix.scripts(config.vendor_path_js.concat([config.assets_path + '/js/**/*.js']),
-			'public/js/all.js', config.assets_path);
+		mix.styles(config.vendor_path_css.concat([config.assets_path + '/css/**/*.css']), 'public/css/all.css', config.assets_path);
+		mix.scripts(config.vendor_path_js.concat([config.assets_path + '/js/**/*.js']), 'public/js/all.js', config.assets_path);
 		mix.version(['js/all.js', 'css/all.css']);
 	});
 });
-
-
-/*
-elixir(function(mix){
-	mix.sass('app.scss');
-});
-*/
