@@ -24,6 +24,7 @@
     "angular-messages": "~1.4.6",
     "angular-bootstrap": "~0.13.4",
     "angular-strap": "~2.3.3",
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "angular-oauth2": "~3.0.1"
   }
 }
