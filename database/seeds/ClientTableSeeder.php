@@ -12,8 +12,7 @@ class ClientTableSeeder extends Seeder
      */
     public function run()
     {
-        //Client::truncate();
-        factory(Client::class, 10)->create();
+        Client::truncate();
         factory(Client::class)->create([
             "name"=>"Lucas Gabriel", 
             "responsible"=>"Gabriel Teixeira", 
@@ -22,5 +21,7 @@ class ClientTableSeeder extends Seeder
             "address"=>"aosihd asdioashd ",
             "obs"=>"oash doiashdioas dhoias"
         ]);
+        factory(Client::class, 10)->create();
+        
     }
 }

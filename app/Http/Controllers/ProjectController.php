@@ -29,7 +29,6 @@ class ProjectController extends Controller
     }
 
     public function index(){
-
         return $this->repository->skipPresenter()->with(['members', 'client', 'owner'])->findWhere(['owner_id'=>\Authorizer::getResourceOwnerId()]);
     }
 
@@ -53,6 +52,9 @@ class ProjectController extends Controller
         return $this->repository->delete($id);
     }
 
+
+
+    //Checks --------------------------------------------------------------------
     private function checkProjectOwner($projectId){
         $userId = \Authorizer::getResourceOwnerId();
         return $this->repository->isOwner($projectId, $userId);
