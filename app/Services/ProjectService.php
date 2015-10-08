@@ -64,6 +64,81 @@ class ProjectService{
 		}
 	}
 
+	public function addMember(array $data){
+		try{
+			$project = $this->repository->skipPresenter()->find($data['project_id']);
+			if($project->members()->create($data)){
+				return [
+					'error'		=> false,
+					'message'	=> 'Member added to Project'
+				];
+			}
+			else{
+				return [
+					'error'		=> true,
+					'message'	=> 'Add member error'
+				];
+			}
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}		
+	}
+
+	public function removeMember(array $data){
+		try{
+			$project = $this->repository->skipPresenter()->find($data['project_id']);
+			if($project->members()->detach($data['member_id'])){
+				return [
+					'error'		=> false,
+					'message'	=> 'Member removed'
+				];
+			}
+			else{
+				return [
+					'error'		=> true,
+					'message'	=> 'Remove member error'
+				];
+			}
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}		
+	}
+
+	public function isMember(array $data){
+		try{
+			$project = $this->repository->skipPresenter()->find($data['project_id']);
+			if($project->members->find($data['member_id'])){
+				return [
+					'error'		=> false,
+					'message'	=> 'Is member'
+				];
+			}
+			else{
+				return [
+					'error'		=> true,
+					'message'	=> 'Is not a member'
+				];
+			}
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}	
+	}
+
+	
+	
+
 	public function createFile(array $data){
 		//name, description, extension, file.
 		$project = $this->repository->skipPresenter()->find($data['project_id']);

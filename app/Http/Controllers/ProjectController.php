@@ -52,6 +52,9 @@ class ProjectController extends Controller
         return $this->repository->delete($id);
     }
 
+
+
+    //Checks --------------------------------------------------------------------
     private function checkProjectOwner($projectId){
         $userId = \Authorizer::getResourceOwnerId();
         return $this->repository->isOwner($projectId, $userId);
