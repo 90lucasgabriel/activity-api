@@ -48,4 +48,27 @@ class ProjectTaskService{
 			];
 		}
 	}
+
+	public function delete($id){
+		try{
+			if($this->repository->delete($id)){
+				return [
+					'error' => false,
+					'message' => 'Task removed'
+				];
+			}
+			else{
+				return [
+					'error' => true,
+					'message' => 'Task remove error'
+				];
+			}
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}
+	}
 }

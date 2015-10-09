@@ -29,18 +29,33 @@ Route::group(['middleware' => 'oauth'], function (){
 	Route::resource('project', 'ProjectController', ['except' => ['create','edit']]);
 	
 
-	Route::group(['prefix' => 'project'], function(){
-		Route::get('{id}/note/{noteId}', 'ProjectNoteController@show');
-		Route::put('{id}/note/{noteId}', 'ProjectNoteController@update');
-		Route::delete('{id}/note/{noteId}', 'ProjectNoteController@destroy');
-		Route::get('{id}/note', 'ProjectNoteController@index');
-		Route::post('{id}/note', 'ProjectNoteController@store');
+	Route::group(['prefix' => 'project/{id}'], function(){
 
-		Route::get('{id}/member/{memberId}', 'ProjectMemberController@show');
-		Route::delete('{id}/member/{memberId}', 'ProjectMemberController@destroy');
-		Route::get('{id}/member', 'ProjectMemberController@index');
-		Route::post('{id}/member', 'ProjectMemberController@store');
+		Route::group(['prefix' => 'note'], function(){
+			Route::get('{noteId}', 		'ProjectNoteController@show');
+			Route::put('{noteId}', 		'ProjectNoteController@update');
+			Route::delete('{noteId}', 	'ProjectNoteController@destroy');
+			Route::get('', 				'ProjectNoteController@index');
+			Route::post('', 			'ProjectNoteController@store');
+		});
 
-		Route::post('{id}/file', 'ProjectFileController@store');
+		Route::group(['prefix' => 'task'], function(){
+			Route::get('{taskId}', 		'ProjectTaskController@show');
+			Route::put('{taskId}', 		'ProjectTaskController@update');
+			Route::delete('{taskId}', 	'ProjectTaskController@destroy');
+			Route::get('', 				'ProjectTaskController@index');
+			Route::post('', 			'ProjectTaskController@store');
+		});
+
+		Route::group(['prefix' => 'member'], function(){
+			Route::get('{memberId}', 	'ProjectMemberController@show');
+			Route::delete('{memberId}', 'ProjectMemberController@destroy');
+			Route::get('', 				'ProjectMemberController@index');
+			Route::post('', 			'ProjectMemberController@store');
+		});
+
+		Route::group(['prefix' => 'file'], function(){
+			Route::post('',				'ProjectFileController@store');
+		});
 	});
 });
