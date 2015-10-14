@@ -6,20 +6,34 @@
 	angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
 
 
-	app.config(['$routeProvider', 'OAuthProvider', function($routeProvider, OAuthProvider){
-		$routeProvider
-		.when('/login', {
-			templateUrl: 'build/views/login.html',
-			controller:  'LoginController'
-		})
-		.when('/home', {
-			templateUrl: 'build/views/home.html',
-			controller:  'HomeController'
-		});
+	app.provider('appConfig', function(){
+		var config = {
+			baseUrl: 'http://localhost:8000'
+		};
+		return {
+			config: config,
+			$get: function(){
+				return config;
+			}
+		}
+	});
 
-		OAuthProvider.configure({
-			baseUrl: 'http://localhost:8000',
-			clientId: 'appId1',
+	app.config([
+		'$routeProvider', 'OAuthProvider', 'appConfigProvider',
+		function($routeProvider, OAuthProvider, appConfigProvider){
+			$routeProvider
+			.when('/login', {
+				templateUrl: 'build/views/login.html',
+				controller:  'LoginController'
+			})
+			.when('/home', {
+				templateUrl: 'build/views/home.html',
+				controller:  'HomeController'
+			});
+
+			OAuthProvider.configure({
+				baseUrl: appConfigProvider.config.baseUrl,
+				clientId: 'appId1',
       		clientSecret: 'secret', // optional
       		grantPath: 'oauth/access_token'
       	});
