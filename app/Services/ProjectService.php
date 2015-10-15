@@ -144,5 +144,47 @@ class ProjectService{
 		$project = $this->repository->skipPresenter()->find($data['project_id']);
 		$projectFile = $project->files()->create($data);
 		$this->storage->put($projectFile->id . "." . $data['extension'], $this->filesystem->get($data['file']));
+		
+	}
+
+	public function showFile(array $data){
+		//name, description, extension, file.
+		$project = $this->repository->skipPresenter()->find($data['project_id']);
+		$projectFile = $project->files()->create($data);
+		$this->storage->put($projectFile->id . "." . $data['extension'], $this->filesystem->get($data['file']));
+		
+	}
+
+	public function deleteFile(array $data){
+		try{
+			$project = $this->repository->skipPresenter()->find($data['project_id']);
+			if($project->files()->delete($data['file_id'])){
+				return [
+					'error'		=> false,
+					'message'	=> 'File removed'
+				];
+			}
+			else{
+				return [
+					'error'		=> true,
+					'message'	=> 'Remove File error'
+				];
+			}
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}
+	}
+
+	public function checkFile(array $data){
+		if(	($data['name']) and 
+			($data['file']) and 
+			($data['project_id'])){
+			return true;
+		}
+		return false;
 	}
 }
