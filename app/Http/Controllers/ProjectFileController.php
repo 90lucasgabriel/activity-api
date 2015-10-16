@@ -33,21 +33,7 @@ class ProjectFileController extends Controller
         $data['project_id'] = $request->project_id;
         $data['description'] = $request->description;
 
-        if($this->service->checkFile($data)){
-            $extension = $file->getClientOriginalExtension();
-            $data['extension'] = $extension;
-
-            $this->service->createFile($data);
-
-            return [
-                    'error'     => false,
-                    'message'   => 'File created'
-                ];
-        }
-        return [
-                    'error'     => true,
-                    'message'   => 'Create  File error'
-                ];
+        return $this->service->createFile($data);
     }
 
     public function destroy($projectId, $fileId){

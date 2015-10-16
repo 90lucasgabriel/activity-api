@@ -4,6 +4,7 @@ namespace CodeProject\Services;
 
 use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectValidator;
+use CodeProject\Validators\ProjectFileValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 use Illuminate\Contracts\Filesystem\Factory as Storage;
@@ -30,13 +31,20 @@ class ProjectService{
 	*/
 	protected $storage;
 
-	public function __construct(ProjectRepository $repository, ProjectValidator $validator, Filesystem $filesystem, Storage $storage){
-		$this->repository 	= $repository;
-		$this->validator 	= $validator;
-		$this->filesystem 	= $filesystem;
-		$this->storage 		= $storage;
+	/**
+	* @var ProjectFileValidator
+	*/
+	protected $validatorFile;
+
+	public function __construct(ProjectRepository $repository, ProjectValidator $validator, Filesystem $filesystem, Storage $storage, ProjectFileValidator $validatorFile){
+		$this->repository 		= $repository;
+		$this->validator 		= $validator;
+		$this->filesystem 		= $filesystem;
+		$this->storage 			= $storage;
+		$this->validatorFile	= $validatorFile;
 	}
 
+	//PROJECT ---------------------------------------------------------------------------------------------
 	//Ao passar os dados do Projecte, criá-lo.
 	public function create(array $data){
 		try{
@@ -64,6 +72,9 @@ class ProjectService{
 		}
 	}
 
+
+
+	//PROJECT MEMBER --------------------------------------------------------------------------------------
 	public function addMember(array $data){
 		try{
 			$project = $this->repository->skipPresenter()->find($data['project_id']);
@@ -139,12 +150,29 @@ class ProjectService{
 	
 	
 
+	//PROJECT FILE ----------------------------------------------------------------------------------------
 	public function createFile(array $data){
 		//name, description, extension, file.
-		$project = $this->repository->skipPresenter()->find($data['project_id']);
-		$projectFile = $project->files()->create($data);
-		$this->storage->put($projectFile->id . "." . $data['extension'], $this->filesystem->get($data['file']));
-		
+		try{
+			$this->validatorFile->with($data)->passesOrFail();
+
+			$extension = $data['file']->getClientOriginalExtension();
+            $data['extension'] = $extension;
+
+			$project = $this->repository->skipPresenter()->find($data['project_id']);
+			$projectFile = $project->files()->create($data);
+			$this->storage->put($projectFile->id . "." . $data['extension'], $this->filesystem->get($data['file']));
+			return [
+				'error' 	=> false,
+				'message'	=> "File created"
+			];
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}
 	}
 
 	public function showFile(array $data){
@@ -179,12 +207,4 @@ class ProjectService{
 		}
 	}
 
-	public function checkFile(array $data){
-		if(	($data['name']) and 
-			($data['file']) and 
-			($data['project_id'])){
-			return true;
-		}
-		return false;
-	}
 }
