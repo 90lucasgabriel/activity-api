@@ -5,6 +5,7 @@ namespace CodeProject\Http\Controllers;
 use Illuminate\Http\Request;
 use CodeProject\Repositories\ProjectNoteRepository;
 use CodeProject\Services\ProjectNoteService;
+use CodeProject\Entities\ProjectNote;
 
 class ProjectNoteController extends Controller
 {
@@ -29,7 +30,8 @@ class ProjectNoteController extends Controller
     }
 
     public function index($id){
-        return $this->repository->findWhere(['project_id'=>$id]);
+        $projectNotes =  $this->repository->findWhere(['project_id'=>$id]);
+         return $projectNotes;
     }
 
     public function store(Request $request){
@@ -37,7 +39,11 @@ class ProjectNoteController extends Controller
     }
 
     public function show($id, $noteId)    {
-        return $this->repository->findWhere(['project_id'=>$id, 'id'=>$noteId]);
+        if($this->checkProjectOwner($id)==false){
+            return ['error' => 'Access Forbidden'];
+        }
+        $projectNote = $this->repository->findWhere(['project_id'=>$id, 'id'=>$noteId]);
+        return $projectNote[0]->project;
     }
 
     public function update(Request $request, $id, $noteId){
@@ -47,4 +53,28 @@ class ProjectNoteController extends Controller
     public function destroy($id, $noteId){
         return $this->repository->delete($noteId);
     }
+
+
+    //Checks --------------------------------------------------------------------
+    private function checkProjectOwner($projectId){
+        $userId = \Authorizer::getResourceOwnerId();
+        return $this->repository->skipPresenter()->isOwner($projectId, $userId);
+    }
+
+    /*
+    private function checkProjectMember($projectId){
+        $userId = \Authorizer::getResourceOwnerId();
+        return $this->repository->hasMember($projectId, $userId);
+    }
+
+    private function checkProjectPermissions($projectId){
+        $this->repository->skipPresenter(true);
+        if($this->checkProjectOwner($projectId) or $this->checkProjectMember($projectId)){
+            $this->repository->skipPresenter(false);
+            return true;
+        }
+
+        return false;
+    }
+    */
 }
