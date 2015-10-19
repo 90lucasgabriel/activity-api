@@ -31,25 +31,30 @@
 				templateUrl: 'build/views/home.html',
 				controller:  'HomeController'
 			})
+			.when('/clients/new', {
+				templateUrl: 'build/views/client/new.html',
+				controller:  'ClientNewController'
+			})
 			.when('/clients', {
 				templateUrl: 'build/views/client/list.html',
 				controller:  'ClientListController'
 			});
+			
 
 			OAuthProvider.configure({
 				baseUrl: appConfigProvider.config.baseUrl,
 				clientId: 'appId1',
 	      		clientSecret: 'secret', // optional
 	      		grantPath: 'oauth/access_token'
-      		});
+	      	});
 
-      		OAuthTokenProvider.configure({
+			OAuthTokenProvider.configure({
 				name: 'token',
 				options: {
 					secure: false
 				}
-	      	});
-	}])
+			});
+		}])
 
 
 	app.run(['$rootScope', '$window', 'OAuth', function($rootScope, $window, OAuth) {
