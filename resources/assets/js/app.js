@@ -35,6 +35,14 @@
 				templateUrl: 'build/views/client/new.html',
 				controller:  'ClientNewController'
 			})
+			.when('/clients/:id/edit', {
+				templateUrl: 'build/views/client/edit.html',
+				controller:  'ClientEditController'
+			})
+			.when('/clients/:id/remove', {
+				templateUrl: 'build/views/client/remove.html',
+				controller:  'ClientRemoveController'
+			})
 			.when('/clients', {
 				templateUrl: 'build/views/client/list.html',
 				controller:  'ClientListController'
@@ -57,8 +65,8 @@
 		}])
 
 
-	app.run(['$rootScope', '$window', 'OAuth', function($rootScope, $window, OAuth) {
-		$rootScope.$on('oauth:error', function(event, rejection) {
+app.run(['$rootScope', '$window', 'OAuth', function($rootScope, $window, OAuth) {
+	$rootScope.$on('oauth:error', function(event, rejection) {
 			// Ignore `invalid_grant` error - should be catched on `LoginController`.
 			if ('invalid_grant' === rejection.data.error) {
 				return;
@@ -72,7 +80,7 @@
 			// Redirect to `/login` with the `error_reason`.
 			return $window.location.href = '/login?error_reason=' + rejection.data.error;
 		})
-	}]);
+}]);
 
 })();
 

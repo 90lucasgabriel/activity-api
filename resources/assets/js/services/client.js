@@ -7,6 +7,12 @@
 	Client.$inject = ['$resource','appConfig'];
 
 	function Client($resource, appConfig){
-		return $resource(appConfig.baseUrl + '/client/:id', {id: '@id'});
+		return $resource(appConfig.baseUrl + '/client/:id', {id: '@id'},
+		{
+			update: {
+				method: 'PUT'
+			}
+		});
 	};
+	
 })();
