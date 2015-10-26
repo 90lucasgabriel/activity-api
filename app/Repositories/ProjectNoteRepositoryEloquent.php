@@ -20,7 +20,7 @@ class ProjectNoteRepositoryEloquent extends BaseRepository implements ProjectNot
 		return false;
 	}
 
-    public function presenter(){
-        return ProjectNotePresenter::class;
-    }
+    //public function presenter(){
+    //    return ProjectNotePresenter::class;
+    //}
 }

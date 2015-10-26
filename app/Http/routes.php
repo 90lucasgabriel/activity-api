@@ -31,7 +31,7 @@ Route::group(['middleware' => 'oauth'], function (){
 
 	Route::group(['prefix' => 'project/{id}'], function(){
 
-		Route::group(['prefix' => 'note'], function(){
+		Route::group(['prefix' => 'notes'], function(){
 			Route::get('{noteId}', 		'ProjectNoteController@show');
 			Route::put('{noteId}', 		'ProjectNoteController@update');
 			Route::delete('{noteId}', 	'ProjectNoteController@destroy');

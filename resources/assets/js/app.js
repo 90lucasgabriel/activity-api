@@ -31,6 +31,8 @@
 				templateUrl: 'build/views/home.html',
 				controller:  'HomeController'
 			})
+
+			//CLIENT ----------------------------------------------------------------
 			.when('/clients/new', {
 				templateUrl: 'build/views/client/new.html',
 				controller:  'ClientNewController'
@@ -43,9 +45,35 @@
 				templateUrl: 'build/views/client/remove.html',
 				controller:  'ClientRemoveController'
 			})
+			.when('/clients/:id', {
+				templateUrl: 'build/views/client/view.html',
+				controller:  'ClientViewController'
+			})
 			.when('/clients', {
 				templateUrl: 'build/views/client/list.html',
 				controller:  'ClientListController'
+			})
+
+			//PROJECT NOTE ----------------------------------------------------------
+			.when('/project/:id/notes/new', {
+				templateUrl: 'build/views/projectNote/new.html',
+				controller:  'ProjectNoteNewController'
+			})
+			.when('/project/:id/notes/:noteId/edit', {
+				templateUrl: 'build/views/projectNote/edit.html',
+				controller:  'ProjectNoteEditController'
+			})
+			.when('/project/:id/notes/:noteId/remove', {
+				templateUrl: 'build/views/projectNote/remove.html',
+				controller:  'ProjectNoteRemoveController'
+			})
+			.when('/project/:id/notes/:noteId', {
+				templateUrl: 'build/views/projectNote/view.html',
+				controller:  'ProjectNoteViewController'
+			})
+			.when('/project/:id/notes', {
+				templateUrl: 'build/views/projectNote/list.html',
+				controller:  'ProjectNoteListController'
 			});
 			
 

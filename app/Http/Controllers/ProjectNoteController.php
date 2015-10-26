@@ -31,11 +31,11 @@ class ProjectNoteController extends Controller
 
     public function index($id){
         $projectNotes =  $this->repository->findWhere(['project_id'=>$id]);
-         return $projectNotes;
+        return $projectNotes;
     }
 
-    public function store(Request $request){
-        return $this->service->create($request->all());
+    public function store(Request $request, $id){
+        return $this->service->create($request->all(), $id);
     }
 
     public function show($id, $noteId)    {
@@ -43,15 +43,15 @@ class ProjectNoteController extends Controller
             return ['error' => 'Access Forbidden'];
         }
         $projectNote = $this->repository->findWhere(['project_id'=>$id, 'id'=>$noteId]);
-        return $projectNote[0]->project;
+        return $projectNote->first();
     }
 
-    public function update(Request $request, $id, $noteId){
+    public function update(Request $request, $noteId){
         return $this->service->update($request->all(), $noteId);
     }
 
     public function destroy($id, $noteId){
-        return $this->repository->delete($noteId);
+        return $this->service->destroy($noteId);
     }
 
 

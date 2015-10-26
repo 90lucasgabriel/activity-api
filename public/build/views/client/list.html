@@ -1,6 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
+			<a ng-href="#/clients/new" class="btn btn-primary">Novo</a>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					Listagem de clientes
@@ -10,7 +11,6 @@
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th>Responsible</th>
 								<th>Email</th>
 								<th>Phone</th>
 								<th>Actions</th>
@@ -18,8 +18,9 @@
 						</thead>
 						<tbody>
 							<tr ng-repeat="o in clients">
-								<td>{{o.name}}</td>
-								<td>{{o.responsible}}</td>
+								<td>
+									<a ng-href="#/clients/{{o.id}}">{{o.name}}</a>
+								</td>
 								<td>{{o.email}}</td>
 								<td>{{o.phone}}</td>
 								<td>
