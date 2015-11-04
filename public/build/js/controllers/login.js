@@ -4,11 +4,15 @@
 	var app = angular.module('app.controllers');
 	app.controller('LoginController', LoginController);
 
-	LoginController.$inject = ['$scope', '$location', 
-		'OAuth'];
+	LoginController.$inject = [
+		'$scope', '$location', '$cookies',
+		'User', 'OAuth'
+	];
 
-	function LoginController($scope, $location,
-		OAuth){
+	function LoginController(
+		$scope, $location, $cookies,
+		User, OAuth
+	){
 		$scope.user = {
 			username: '',
 			password: ''
@@ -22,7 +26,10 @@
 
 		$scope.login = function(){
 			OAuth.getAccessToken($scope.user).then(function(){
-				$location.path('home');
+				User.authenticated(null, null, function(data){
+					$cookies.putObject('user', data);
+					$location.path('home');
+				});
 			}, function(data){
 				$scope.error.error = true;
 				$scope.error.message = data.data.error_description;

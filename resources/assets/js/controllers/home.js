@@ -4,10 +4,10 @@
 	var app = angular.module('app.controllers');
 	app.controller('HomeController', HomeController);
 
-	HomeController.$inject = ['$scope'];
+	HomeController.$inject = ['$scope', '$cookies'];
 
-	function HomeController($scope){
-		
+	function HomeController($scope, $cookies){
+		console.log($cookies.getObject('user'));
 	};
 	
 })();
