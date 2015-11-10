@@ -72,6 +72,15 @@ class ProjectService{
 		}
 	}
 
+	public function destroy($id){
+		if($this->repository->delete($id)){
+			return ['success'=>true];
+		}
+		else{
+			return ['success'=>false];
+		}
+	}
+
 
 
 	//PROJECT MEMBER --------------------------------------------------------------------------------------

@@ -1,0 +1,16 @@
+<div class="col-md-8 col-md-offset-2">
+	<div class="panel panel-default">
+		<div class="panel-heading">Exclusão do Projeto</div>
+		<div class="panel-body">
+			<p>Deseja excluir esse projeto?</p>
+			<ul>
+				<li>Id: {{project.id}}</li>
+				<li>Name: {{project.name}}</li>
+				<li>Client: {{project.client.data.name}}</li>
+			</ul>
+			<div class="col-md-6">
+				<button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
+			</div>
+		</div>
+	</div>
+</div>

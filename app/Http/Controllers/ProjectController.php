@@ -29,7 +29,7 @@ class ProjectController extends Controller
     }
 
     public function index(){
-       return $this->repository->skipPresenter()->with(['members', 'client', 'owner'])->findWhere(['owner_id'=>\Authorizer::getResourceOwnerId()]);
+       return $this->repository->with(['members', 'client', 'owner'])->findWhere(['owner_id'=>\Authorizer::getResourceOwnerId()]);
     }
 
     public function store(Request $request){
@@ -41,7 +41,7 @@ class ProjectController extends Controller
         if($this->checkProjectPermissions($id)==false){
             return ['error' => 'Access Forbidden'];
         }
-        return $this->repository->skipPresenter()->with(['members', 'client', 'owner'])->find($id);
+        return $this->repository->with(['members', 'client', 'owner'])->find($id);
     }
 
     public function update(Request $request, $id){
@@ -49,7 +49,7 @@ class ProjectController extends Controller
     }
 
     public function destroy($id){
-        return $this->repository->delete($id);
+        return $this->service->destroy($id);
     }
 
 

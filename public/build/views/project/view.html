@@ -1,0 +1,26 @@
+<div class="col-md-8 col-md-offset-2">
+	<div class="panel panel-default">
+		<div class="panel-heading">Detalhes das Anotações do Projeto</div>
+		<div class="panel-body">
+			<div class="col-md-12">
+				<label class="col-md-2 control-label">Project ID:</label>
+				<div class="col-md-10 ">{{projectNote.project_id}}</div>
+			</div>
+			<div class="col-md-12">
+				<label class="col-md-2 control-label">ID:</label>
+				<div class="col-md-10 ">{{projectNote.id}}</div>
+			</div>
+			<div class="col-md-12">
+				<label class="col-md-2 control-label">Title:</label>
+				<div class="col-md-10 ">{{projectNote.title}}</div>
+			</div>
+			<div class="col-md-12">
+				<label class="col-md-2 control-label">Note:</label>
+				<div class="col-md-10 ">{{projectNote.note}}</div>
+			</div>
+		</div>
+	</div>
+	<div class="">
+		<a ng-href="#/project/{{projectNote.project_id}}/notes" class="btn btn-primary">Voltar</a>
+	</div>
+</div>

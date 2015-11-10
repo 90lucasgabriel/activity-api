@@ -8,6 +8,7 @@
 
 	function HomeController($scope, $cookies){
 		console.log($cookies.getObject('user'));
+
 	};
 	
 })();
