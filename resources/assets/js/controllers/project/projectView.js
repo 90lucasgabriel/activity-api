@@ -2,11 +2,11 @@
 	"use strict";
 
 	var app = angular.module('app.controllers');
-	app.controller('ProjectViewController', ProjectNoteViewController);
+	app.controller('ProjectViewController', ProjectViewController);
 
-	ProjectNoteViewController.$inject = ['$scope', '$location', '$routeParams', 'ProjectNote'];
+	ProjectViewController.$inject = ['$scope', '$location', '$routeParams', 'Project'];
 
-	function ProjectNoteViewController($scope, $location, $routeParams, ProjectNote){
-		$scope.projectNote = ProjectNote.get({id: $routeParams.id, noteId: $routeParams.noteId});
+	function ProjectViewController($scope, $location, $routeParams, Project){
+		$scope.project = Project.get({id: $routeParams.id});
 	};
 })();

@@ -13,7 +13,10 @@
 		Project, Client, appConfig){
 
 		$scope.project = Project.get({id: $routeParams.id});
-		$scope.clients = Client.query();
+		Project.get({id: $routeParams.id}, function(data){
+			$scope.project = data;
+			$scope.clientSelected = data.client.data;
+		});
 		$scope.status  = appConfig.project.status;
 
 		$scope.save = function(){
@@ -28,7 +31,26 @@
 					}
 				);
 			}
-		}
+		};
+
+		
+		$scope.formatName = function(model){
+			if(model){
+				return model.name;
+			}
+			return '';
+		};
+
+		$scope.getClients = function(name){
+			return Client.query({
+				search: name,
+				searchfields: 'name:like'
+			}).$promise;
+		};
+
+		$scope.selectClient = function(item){
+			$scope.project.client_id = item.id;
+		};
 
 	};
 })();

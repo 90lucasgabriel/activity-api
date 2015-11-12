@@ -39,6 +39,9 @@
 				},
 				update: {
 					method: 'PUT',
+					//headers: {
+				    //    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				    //},
 					transformRequest: transformData
 				}
 			}

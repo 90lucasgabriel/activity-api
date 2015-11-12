@@ -23,7 +23,35 @@
 					$location.path('/project');
 				});
 			}
-		}
+		};
+		
+		$scope.formatName = function(model){
+			if(model){
+				return model.name;
+			}
+			return '';
+		};
+
+		$scope.getClients = function(name){
+			return Client.query({
+				search: name,
+				searchfields: 'name:like'
+			}).$promise;
+		};
+
+		$scope.selectClient = function(item){
+			$scope.project.client_id = item.id;
+		};
+
+		$scope.due_date = {
+			status: {
+				opened: false
+			}
+		};
+
+		$scope.open = function($event){
+			$scope.due_date.status.opened = true
+		};
 
 	};
 })();
