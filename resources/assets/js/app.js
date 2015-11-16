@@ -4,7 +4,7 @@
 	var app = angular.module('app', [
 		'ngRoute', 
 		'app.controllers', 'app.services', 'app.filters', 
-		'angular-oauth2', 'ui.bootstrap.typeahead', 'ui.bootstrap.datepicker','ui.bootstrap.tpls'
+		'angular-oauth2', 'ui.bootstrap.typeahead', 'ui.bootstrap.datepicker','ui.bootstrap.tpls', 'ngFileUpload'
 	]);
 
 	angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
@@ -97,6 +97,25 @@
 				controller:  'ClientListController'
 			})
 
+			//PROJECT FILE -------------------------------------------------------
+			.when('/project/:id/file', {
+				templateUrl: 'build/views/project-files/index.html',
+				controller:  'ProjectFileListController'
+			})
+			.when('/project/:id/file/new', {
+				templateUrl: 'build/views/project-files/new.html',
+				controller:  'ProjectFileNewController'
+			})
+			.when('/project/:id/file/:fileId/edit', {
+				templateUrl: 'build/views/project-files/edit.html',
+				controller:  'ProjectFileEditController'
+			})
+			.when('/project/:id/file/:fileId/remove', {
+				templateUrl: 'build/views/project-files/remove.html',
+				controller:  'ProjectFileRemoveController'
+			})
+
+
 			//PROJECT NOTE ----------------------------------------------------------
 			.when('/project/:id/notes/new', {
 				templateUrl: 'build/views/project-note/new.html',
@@ -141,6 +160,7 @@
 				controller:  'ProjectListController'
 			});
 			
+
 
 			OAuthProvider.configure({
 				baseUrl: appConfigProvider.config.baseUrl,
