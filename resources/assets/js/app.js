@@ -139,6 +139,10 @@
 			})
 
 			//PROJECT --------------------------------------------------------------
+			.when('/project/new', {
+				templateUrl: 'build/views/project/new.html',
+				controller:  'ProjectNewController'
+			})
 			.when('/project/:id/edit', {
 				templateUrl: 'build/views/project/edit.html',
 				controller:  'ProjectEditController'
@@ -147,14 +151,10 @@
 				templateUrl: 'build/views/project/remove.html',
 				controller:  'ProjectRemoveController'
 			})
-			.when('/project/new', {
-				templateUrl: 'build/views/project/new.html',
-				controller:  'ProjectNewController'
-			})
 			.when('/project/:id', {
 				templateUrl: 'build/views/project/view.html',
 				controller:  'ProjectViewController'
-			})
+			})						
 			.when('/project', {
 				templateUrl: 'build/views/project/list.html',
 				controller:  'ProjectListController'

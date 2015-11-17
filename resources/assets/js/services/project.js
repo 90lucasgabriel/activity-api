@@ -35,13 +35,16 @@
 				},
 				save: {
 					method: 'POST',
+					headers: {
+				        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				    },
 					transformRequest: transformData
 				},
 				update: {
 					method: 'PUT',
-					//headers: {
-				    //    'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
-				    //},
+					headers: {
+				        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				    },
 					transformRequest: transformData
 				}
 			}

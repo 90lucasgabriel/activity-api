@@ -35,7 +35,7 @@
 		$scope.getClients = function(name){
 			return Client.query({
 				search: name,
-				searchfields: 'name:like'
+				searchFields: 'name:like'
 			}).$promise;
 		};
 

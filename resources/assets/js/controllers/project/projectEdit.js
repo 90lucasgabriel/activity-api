@@ -18,13 +18,17 @@
 			$scope.clientSelected = data.client.data;
 		});
 		$scope.status  = appConfig.project.status;
+		$scope.due_date = {
+			status: {
+				opened: false
+			}
+		};
 
 		$scope.save = function(){
 			if($scope.form.$valid){
 				$scope.project.owner_id = $cookies.getObject('user').id;
-
 				Project.update(
-					{id: $scope.project.id}, 
+					{id: $scope.project.project_id}, 
 					$scope.project, 
 					function(){
 						$location.path('/project');	
@@ -44,12 +48,16 @@
 		$scope.getClients = function(name){
 			return Client.query({
 				search: name,
-				searchfields: 'name:like'
+				searchFields: 'name:like'
 			}).$promise;
 		};
 
 		$scope.selectClient = function(item){
 			$scope.project.client_id = item.id;
+		};
+
+		$scope.open = function($event) {
+			$scope.due_date.status.opened = true;
 		};
 
 	};
