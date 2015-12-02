@@ -57,6 +57,8 @@ Route::group(['middleware' => 'oauth'], function (){
 
 		Route::group(['prefix' => 'file'], function(){
 			Route::get('{fileId}',   	'ProjectFileController@show');
+			Route::put('{fileId}',   	'ProjectFileController@update');
+			Route::get('{fileId}/download','ProjectFileController@showFile');
 			Route::delete('{fileId}',   'ProjectFileController@destroy');
 			Route::get('',				'ProjectFileController@index');
 			Route::post('',				'ProjectFileController@store');

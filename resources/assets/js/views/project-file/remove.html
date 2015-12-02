@@ -1,0 +1,17 @@
+<div class="col-md-8 col-md-offset-2">
+	<div class="panel panel-default">
+		<div class="panel-heading">Detalhes das Anotações do Projeto</div>
+		<div class="panel-body">
+			<p>Deseja excluir esse cliente?</p>
+			<ul>
+				<li>Project Id: {{projectNote.project_id}}</li>
+				<li>Id: {{projectNote.id}}</li>
+				<li>Title: {{projectNote.title}}</li>
+				<li>Note: {{projectNote.note}}</li>
+			</ul>
+			<div class="col-md-6">
+				<button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
+			</div>
+		</div>
+	</div>
+</div>

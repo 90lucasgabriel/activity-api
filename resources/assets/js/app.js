@@ -3,12 +3,13 @@
 
 	var app = angular.module('app', [
 		'ngRoute', 
-		'app.controllers', 'app.services', 'app.filters', 
+		'app.controllers', 'app.services', 'app.filters', 'app.directives', 
 		'angular-oauth2', 'ui.bootstrap.typeahead', 'ui.bootstrap.datepicker','ui.bootstrap.tpls', 'ngFileUpload'
 	]);
 
 	angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
 	angular.module('app.filters', []);
+	angular.module('app.directives', []);
 	angular.module('app.services', ['ngResource']);
 
 
@@ -24,6 +25,9 @@
 				{value: 2, label: "Iniciado"},
 				{value: 3, label: "Concluído"}
 				]
+			},
+			urls:{
+				projectFile: '/project/{{id}}/file/{{fileId}}'
 			},		
 			utils: {
 				transformRequest: function(data){
@@ -99,7 +103,7 @@
 
 			//PROJECT FILE -------------------------------------------------------
 			.when('/project/:id/file', {
-				templateUrl: 'build/views/project-files/index.html',
+				templateUrl: 'build/views/project-files/list.html',
 				controller:  'ProjectFileListController'
 			})
 			.when('/project/:id/file/new', {

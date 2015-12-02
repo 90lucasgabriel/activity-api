@@ -7,16 +7,21 @@
 	ProjectFile.$inject = ['$resource','appConfig'];
 
 	function ProjectFile($resource, appConfig){
-		return $resource(appConfig.baseUrl + '/project/:id/files/:noteId', 
-			{
-				id: '@id',
-				fileId: '@fileId'
+		return $resource(appConfig.baseUrl + '/project/:id/files/:fileId', 
+		{
+			id: '@id',
+			fileId: '@fileId'
+		},
+		{
+			update: {
+				method: 'PUT'
 			},
-			{
-				update: {
-					method: 'PUT'
-				}
+			download: {
+				url: appConfig.baseUrl +
+				Url.getUrlResource(appConfig.urls.projectFile) + '/download',
+				method: 'GET'
 			}
+		}
 		);
 	};
 	
