@@ -2,21 +2,32 @@
 	"use strict";
 
 	var app = angular.module('app.controllers');
-	app.controller('ProjectNoteEditController', ProjectNoteEditController);
+	app.controller('ProjectFileEditController', ProjectFileEditController);
 
-	ProjectNoteEditController.$inject = ['$scope', '$location', '$routeParams', 'ProjectNote'];
+	ProjectFileEditController.$inject = [
+		'$scope', '$location', '$routeParams', 
+		'ProjectFile'];
 
-	function ProjectNoteEditController($scope, $location, $routeParams, ProjectNote){
-		$scope.projectNote = ProjectNote.get({id: $routeParams.id, noteId: $routeParams.noteId});
+	function ProjectFileEditController(
+		$scope, $location, $routeParams, 
+		ProjectFile){
+
+		$scope.projectFile = ProjectFile.get({
+			id: $routeParams.id, 
+			fileId: $routeParams.fileId
+		});
+
+		console.log($scope.projectFile);
 
 		$scope.save = function(){
 			if($scope.form.$valid){
-				ProjectNote.update({
-						noteId: $scope.projectNote.id
+				ProjectFile.update({
+						id: $routeParams.id, 
+						fileId: $routeParams.fileId
 					},
-					$scope.projectNote, 
+					$scope.projectFile, 
 					function(){
-						$location.path('/project/' + $routeParams.id + '/notes');
+						$location.path('/project/' + $routeParams.id + '/file');
 					}
 				);
 			}

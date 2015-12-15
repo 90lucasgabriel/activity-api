@@ -2,15 +2,26 @@
 	"use strict";
 
 	var app = angular.module('app.controllers');
-	app.controller('ProjectNoteRemoveController', ProjectNoteRemoveController);
+	app.controller('ProjectFileRemoveController', ProjectFileRemoveController);
 
-	ProjectNoteRemoveController.$inject = ['$scope', '$location', '$routeParams', 'ProjectNote'];
+	ProjectFileRemoveController.$inject = [
+		'$scope', '$location', '$routeParams', 
+		'ProjectFile'];
 
-	function ProjectNoteRemoveController($scope, $location, $routeParams, ProjectNote){
-		$scope.projectNote = ProjectNote.get({id: $routeParams.id, noteId: $routeParams.noteId});
+	function ProjectFileRemoveController(
+		$scope, $location, $routeParams, 
+		ProjectFile){
+
+		$scope.projectFile = ProjectFile.get({
+			id: $routeParams.id, 
+			fileId: $routeParams.fileId});
+
 		$scope.remove = function(){
-			$scope.projectNote.$delete({id: $routeParams.id, noteId: $routeParams.noteId}).then(function(){
-				$location.path('/project/' + $routeParams.id + '/notes');
+			$scope.projectFile.$delete({
+				id: $routeParams.id, 
+				fileId: $routeParams.fileId})
+			.then(function(){
+				$location.path('/project/' + $routeParams.id + '/file');
 			});
 		}
 

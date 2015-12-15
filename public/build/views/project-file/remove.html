@@ -1,13 +1,13 @@
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
-		<div class="panel-heading">Detalhes das Anotações do Projeto</div>
+		<div class="panel-heading">Exclusão do Arquivo de Projeto</div>
 		<div class="panel-body">
-			<p>Deseja excluir esse cliente?</p>
+			<p>Deseja excluir esse arquivo de projeto?</p>
 			<ul>
-				<li>Project Id: {{projectNote.project_id}}</li>
-				<li>Id: {{projectNote.id}}</li>
-				<li>Title: {{projectNote.title}}</li>
-				<li>Note: {{projectNote.note}}</li>
+				<li>Project Id: {{projectFile.project_id}}</li>
+				<li>Id: {{projectFile.id}}</li>
+				<li>Name: {{projectFile.name}}</li>
+				<li>Description: {{projectFile.description}}</li>
 			</ul>
 			<div class="col-md-6">
 				<button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>

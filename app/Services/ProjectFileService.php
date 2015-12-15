@@ -8,6 +8,7 @@ use CodeProject\Validators\ProjectFileValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Illuminate\Contracts\Filesystem\Factory as Storage;
 use Illuminate\Filesystem\Filesystem;
+use Prettus\Validator\Contracts\ValidatorInterface;
 
 class ProjectFileService{
 
@@ -25,44 +26,148 @@ class ProjectFileService{
 		$this->storage           = $storage;
 	}
 
-	PUBLIC FUNCTION CREATE (ARRAY $DATA){
+
+	//PROJECT FILE ----------------------------------------------------------------------------------------
+	public function create(array $data){
+		//name, description, extension, file.
+		try{
+			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
+
+			//$extension = $data['file']->getClientOriginalExtension();
+            //$data['extension'] = $extension;
+
+			$project = $this->projectRepository->skipPresenter()->find($data['project_id']);
+			$projectFile = $project->files()->create($data);
+			$this->storage->put($projectFile->getFileName(), $this->filesystem->get($data['file']));
+			return [
+				'error' 	=> false,
+				'message'	=> "File created"
+			];
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}
+	}
+
+	public function update(array $data, $fileId){
+		try{
+			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+			return $this->repository->update($data, $fileId);
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}
+	}
+
+
+	public function show(array $data){
+		//name, description, extension, file.
+		$project = $this->repository->skipPresenter()->find($data['project_id']);
+		$projectFile = $project->files()->create($data);
+		$this->storage->put($projectFile->getFileName(), $this->filesystem->get($data['file']));
+		
+	}
+
+/*
+	public function delete(array $data){
+		try{
+			$project = $this->repository->skipPresenter()->find($data['project_id']);
+			if($project->files()->delete($data['file_id'])){
+				return [
+					'error'		=> false,
+					'message'	=> 'File removed'
+				];
+			}
+			else{
+				return [
+					'error'		=> true,
+					'message'	=> 'Remove File error'
+				];
+			}
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}
+	}
+*/
+	public function delete($fileId){
+		$projectFile = $this->repository->skipPresenter()->find($fileId);
+		
+		try{
+			if($this->storage->exists($projectFile->getFileName())){
+				$this->storage->delete($projectFile->getFileName());
+				if($projectFile->delete())
+				{
+					$projectFile->delete();
+					return [
+						'error'		=> false,
+						'message'	=> 'File removed'
+					];
+				}
+				else{
+					return [
+						'error'		=> true,
+						'message'	=> 'Remove File error'
+					];
+				}
+			}
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}
 
 	}
 
-	PUBLIC FUNCTION UPDATE(ARRAY $DATA, $ID){
-
-	}
-
-	public function getFilePath($id){
-		$projectFile = $this->repository->skipPresenter()->find($id);
+	
+	public function getFilePath($fileId){
+		$projectFile = $this->repository->skipPresenter()->find($fileId);
 		return $this->getBaseURL($projectFile);
 	}
 
-	PUBLIC FUNCTION getBaseURL($projectFile){
+	public function getFileName($fileId){
+		$projectFile = $this->repository->skipPresenter()->find($fileId);
+		return $projectFile->getFileName();	
+	}
+
+	public function getBaseURL($projectFile){
 		switch($this->storage->getDefaultDriver()){
 			case 'local':
 				return $this->storage->getDriver()->getAdapter()->getPathPrefix()
-				.'/'. $projectFile->id . '.' . $projectFile->extension;
+				.'/'. $projectFile->getFileName();
 		}
 	}
 
-	PUBLIC FUNCTION CHECKPROJECTOWNER($projectFileId){
+	private function checkProjectOwner($projectFileId){
+        $userId = \Authorizer::getResourceOwnerId();
+        $projectId = $this->repository->skipPresenter()->find($projectFileId)->project_id;
+        return $this->projectRepository->isOwner($projectId, $userId);
+    }
 
-	}
+	private function checkProjectMember($projectFileId){
+        $userId = \Authorizer::getResourceOwnerId();
+        $projectId = $this->repository->skipPresenter()->find($projectFileId)->project_id;
+        return $this->projectRepository->hasMember($projectId, $userId);
+    }
 
-	PUBLIC FUNCTION CHECKPROJECTMEMBER($projectFileId){
-		
-	}
+	private function checkProjectPermissions($projectFileId){
+        if($this->checkProjectOwner($projectFileId) or $this->checkProjectMember($projectFileId)){
+            return true;
+        }
 
-	PUBLIC FUNCTION CHECKPROJECTPERMISSIONS($projectFileId){
-		
-	}
+        return false;
+    }
 
-	public function delete($id){
-		$projectFile = $this->repository->skipPresenter()->find($id);
-		if($this->storage->exists($projectFile->id . '.' . $projectFile->extension)){
-			$this->storage->delete($projectFile->id . '.' . $projectFile->extension);
-			$projectFile->delete();
-		}
-	}
+	
 }

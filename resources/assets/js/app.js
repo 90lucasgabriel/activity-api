@@ -103,19 +103,19 @@
 
 			//PROJECT FILE -------------------------------------------------------
 			.when('/project/:id/file', {
-				templateUrl: 'build/views/project-files/list.html',
+				templateUrl: 'build/views/project-file/list.html',
 				controller:  'ProjectFileListController'
 			})
 			.when('/project/:id/file/new', {
-				templateUrl: 'build/views/project-files/new.html',
+				templateUrl: 'build/views/project-file/new.html',
 				controller:  'ProjectFileNewController'
 			})
 			.when('/project/:id/file/:fileId/edit', {
-				templateUrl: 'build/views/project-files/edit.html',
+				templateUrl: 'build/views/project-file/edit.html',
 				controller:  'ProjectFileEditController'
 			})
 			.when('/project/:id/file/:fileId/remove', {
-				templateUrl: 'build/views/project-files/remove.html',
+				templateUrl: 'build/views/project-file/remove.html',
 				controller:  'ProjectFileRemoveController'
 			})
 

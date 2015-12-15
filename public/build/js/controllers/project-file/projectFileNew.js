@@ -2,22 +2,39 @@
 	"use strict";
 
 	var app = angular.module('app.controllers');
-	app.controller('ProjectNoteNewController', ProjectNoteNewController);
+	app.controller('ProjectFileNewController', ProjectFileNewController);
 
-	ProjectNoteNewController.$inject = ['$scope', '$location', '$routeParams', 'ProjectNote'];
+	ProjectFileNewController.$inject = [
+		'$scope', '$location', '$routeParams', 
+		'appConfig', 'Url', 'Upload'];
 
-	function ProjectNoteNewController($scope, $location, $routeParams, ProjectNote){
-		$scope.projectNote = new ProjectNote();
-		$scope.projectNote.project_id = $routeParams.id;
-		
+	function ProjectFileNewController(
+		$scope, $location, $routeParams, 
+		appConfig, Url, Upload){
+
+
 		$scope.save = function(){
+			console.log($scope.projectFile);
 			if($scope.form.$valid){
-				$scope.projectNote.$save({
-					id: $routeParams.id
-				})
-				.then(function(){
-					$location.path('/project/' + $routeParams.id + '/notes');
+				var url = appConfig.baseUrl + Url.getUrlFromAngularSymbol(appConfig.urls.projectFile, {id: $routeParams.id, fileId: $routeParams.fileId});
+				Upload.upload({
+					url: url,
+					data: {
+						file: $scope.projectFile.file, 
+						name: $scope.projectFile.file.name,
+						description: $scope.projectFile.description,
+						project_id: $routeParams.id
+					}
+				}).then(function (resp) {
+					$location.path('/project/' + $routeParams.id + '/file');
+					console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+				}, function (resp) {
+					console.log('Error status: ' + resp.status);
+				}, function (evt) {
+					var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+					console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
 				});
+
 			}
 		}
 

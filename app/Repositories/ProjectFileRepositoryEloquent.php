@@ -2,7 +2,7 @@
 
 namespace CodeProject\Repositories;
 
-user CodeProject\Presenters\ProjectFilePresenter;
+use CodeProject\Presenters\ProjectFilePresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use CodeProject\Entities\ProjectFile;
 

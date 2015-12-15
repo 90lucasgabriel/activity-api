@@ -22,7 +22,7 @@ class ProjectFileController extends Controller{
 
     public function store(Request $request){
         $file = $request->file('file');
-        $extension = $file->getClientoriginalExtension;
+        $extension = $file->getClientOriginalExtension();
 
         $data['file'] = $file;
         $data['extension'] = $extension;
@@ -33,32 +33,39 @@ class ProjectFileController extends Controller{
         return $this->service->create($data);
     }
 
-    public function showFile($id){
-        if($this->service->checkProjectPermissions($id)==false){
-            return ['error' => 'Access Forbidden'];
-        }
-        return response()->download($this->service->getFilePatch($id));
+    public function showFile($id, $fileId){
+        //if($this->service->checkProjectPermissions($id)==false){
+        //    return ['error' => 'Access Forbidden'];
+        //}
+        $filePath = $this->service->getFilePath($fileId);
+        $fileContent = file_get_contents($filePath);
+        $file64 = base64_encode($fileContent);
+        return [
+            'file' => $file64,
+            'size' => filesize($filePath),
+            'name' => $this->service->getFileName($fileId)
+        ];
     }
 
-    public function show($id){
-        if($this->service->checkProjectOwner($id)==false){
-            return ['error' => 'Access Forbidden'];
-        }
-        return $this->repository->find($id);
+    public function show($id, $fileId){
+        //if($this->service->checkProjectOwner($id)==false){
+        //    return ['error' => 'Access Forbidden'];
+        //}
+        return $this->repository->find($fileId);
     }
 
-    public function update(Request $request, $id){
-        if($this->service->checkProjectOwner($id)==false){
-            return ['error' => 'Access Forbidden'];
-        }
-        return $this->service->update($request->all(), $id);
+    public function update(Request $request, $id, $fileId){
+        //if($this->service->checkProjectOwner($id)==false){
+        //    return ['error' => 'Access Forbidden'];
+        //}
+        return $this->service->update($request->all(), $fileId);
     }
 
-    public function destroy($id){
-        if($this->service->checkProjectOwner($id)==false){
-            return ['error' => 'Access Forbidden'];
-        }
-        return $this->repository->delete($id);
+    public function destroy($id, $fileId){
+        //if($this->service->checkProjectOwner($id)==false){
+        //    return ['error' => 'Access Forbidden'];
+        //}
+        return $this->service->delete($fileId);
     }
 }
 
