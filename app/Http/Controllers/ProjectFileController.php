@@ -48,16 +48,16 @@ class ProjectFileController extends Controller{
     }
 
     public function show($id, $fileId){
-        //if($this->service->checkProjectOwner($id)==false){
-        //    return ['error' => 'Access Forbidden'];
-        //}
+        if($this->service->checkProjectOwner($fileId)==false){
+            return ['error' => 'Access Forbidden'];
+        }
         return $this->repository->find($fileId);
     }
 
     public function update(Request $request, $id, $fileId){
-        //if($this->service->checkProjectOwner($id)==false){
-        //    return ['error' => 'Access Forbidden'];
-        //}
+        if($this->service->checkProjectOwner($id)==false){
+            return ['error' => 'Access Forbidden'];
+        }
         return $this->service->update($request->all(), $fileId);
     }
 

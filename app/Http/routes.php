@@ -28,7 +28,7 @@ Route::group(['middleware' => 'oauth'], function (){
 	
 	Route::get('user/authenticated', 		'UserController@authenticated');
 
-	Route::group(['prefix' => 'project/{id}/'], function(){
+	Route::group([ 'middleware' => 'check.project.permission','prefix' => 'project/{id}/'], function(){
 
 
 
