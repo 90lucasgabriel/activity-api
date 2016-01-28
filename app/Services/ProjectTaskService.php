@@ -12,21 +12,28 @@ class ProjectTaskService{
 	*/
 	protected $repository;
 
+	protected $projectRepository;
+
 	/**
 	* @var ProjectTaskValidator
 	*/
 	protected $validator;
 
-	public function __construct(ProjectTaskRepository $repository, ProjectTaskValidator $validator){
-		$this->repository 	= $repository;
-		$this->validator 	= $validator;
+	public function __construct(ProjectTaskRepository $repository, ProjectRepository $projectRepository, ProjectTaskValidator $validator){
+		$this->repository        = $repository;
+		$this->projectRepository = $projectRepository;
+		$this->validator         = $validator;
 	}
 
 	//Ao passar os dados do ProjectTaske, criá-lo.
 	public function create(array $data){
 		try{
 			$this->validator->with($data)->passesOrFail();
-			return $this->repository->create($data);
+
+			$project = $this->projectRepository->skipPresenter()->find($data['project_id']);
+			$projectTask = $project->tasks()->create($data);
+			return $projectTask;
+			//return $this->repository->create($data);
 		}
 		catch(ValidatorException $e){
 			return [

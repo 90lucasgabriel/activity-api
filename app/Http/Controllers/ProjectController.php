@@ -31,7 +31,6 @@ class ProjectController extends Controller
     }
 
     public function index(){
-    
        return $this->repository->with(['members', 'client', 'owner'])->findWithOwnerAndMember(\Authorizer::getResourceOwnerId());
     }
 
