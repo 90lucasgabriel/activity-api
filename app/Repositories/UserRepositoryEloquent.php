@@ -7,7 +7,15 @@ use Prettus\Repository\Eloquent\BaseRepository;
 use CodeProject\Presenters\UserPresenter;
 
 class UserRepositoryEloquent extends BaseRepository implements UserRepository{
+    protected $fieldSearchable = [
+    	'name'
+    ];
+
     public function model(){
         return User::class;
+    }
+
+    public function boot(){
+    	$this->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
     }
 }

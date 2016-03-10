@@ -21,11 +21,18 @@
 			baseUrl: 'http://localhost:8000',
 			project: {
 				status: [
-				{value: 1, label: "Não iniciado"},
-				{value: 2, label: "Iniciado"},
-				{value: 3, label: "Concluído"}
+					{value: 1, label: "Não iniciado"},
+					{value: 2, label: "Iniciado"},
+					{value: 3, label: "Concluído"}
 				]
 			},
+			projectTask: {
+				status: [
+					{value: 1, label: "Incompleta"},
+					{value: 2, label: "Completa"}
+				]
+			},
+
 			urls:{
 				projectFile: '/project/{{id}}/file/{{fileId}}'
 			},		
@@ -140,6 +147,28 @@
 			.when('/project/:id/notes', {
 				templateUrl: 'build/views/project-note/list.html',
 				controller:  'ProjectNoteListController'
+			})
+
+			//PROJECT TASKS ----------------------------------------------------------
+			.when('/project/:id/tasks/new', {
+				templateUrl: 'build/views/project-task/new.html',
+				controller:  'ProjectTaskNewController'
+			})
+			.when('/project/:id/tasks/:taskId/edit', {
+				templateUrl: 'build/views/project-task/edit.html',
+				controller:  'ProjectTaskEditController'
+			})
+			.when('/project/:id/tasks/:taskId/remove', {
+				templateUrl: 'build/views/project-task/remove.html',
+				controller:  'ProjectTaskRemoveController'
+			})
+			.when('/project/:id/tasks/:taskId', {
+				templateUrl: 'build/views/project-task/view.html',
+				controller:  'ProjectTaskViewController'
+			})
+			.when('/project/:id/tasks', {
+				templateUrl: 'build/views/project-task/list.html',
+				controller:  'ProjectTaskListController'
 			})
 
 			//PROJECT --------------------------------------------------------------

@@ -4,20 +4,11 @@
 	var app = angular.module('app.controllers');
 	app.controller('ProjectNoteEditController', ProjectNoteEditController);
 
-	ProjectNoteEditController.$inject = [
-		'$scope', '$location', '$routeParams', 
-		'ProjectNote'];
+	ProjectNoteEditController.$inject = ['$scope', '$location', '$routeParams', 'ProjectNote'];
 
-	function ProjectNoteEditController(
-		$scope, $location, $routeParams, 
-		ProjectNote){
+	function ProjectNoteEditController($scope, $location, $routeParams, ProjectNote){
+		$scope.projectNote = ProjectNote.get({id: $routeParams.id, noteId: $routeParams.noteId});
 
-		$scope.projectNote = ProjectNote.get(
-			{
-				id: $routeParams.id, 
-				noteId: $routeParams.noteId
-			});
-		
 		$scope.save = function(){
 			if($scope.form.$valid){
 				ProjectNote.update({

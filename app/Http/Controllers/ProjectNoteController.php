@@ -42,7 +42,7 @@ class ProjectNoteController extends Controller
         if($this->checkProjectOwner($id)==false){
             return ['error' => 'Access Forbidden'];
         }
-        $projectNote = $this->repository->findWhere(['project_id'=>$id, 'id'=>$noteId]);
+        $projectNote = $this->repository->skipPresenter()->findWhere(['project_id'=>$id, 'id'=>$noteId]);
         return $projectNote->first();
     }
 

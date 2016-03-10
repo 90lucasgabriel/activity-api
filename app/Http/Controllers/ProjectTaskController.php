@@ -26,6 +26,7 @@ class ProjectTaskController extends Controller
     public function __construct(ProjectTaskRepository $repository, ProjectTaskService $service){
         $this->repository   = $repository;
         $this->service      = $service;
+        
     }
 
     public function index($id){
@@ -33,11 +34,13 @@ class ProjectTaskController extends Controller
     }
 
     public function store(Request $request){
+        
         return $this->service->create($request->all());
     }
 
     public function show($id, $taskId)    {
-        return $this->repository->findWhere(['project_id'=>$id, 'id'=>$taskId]);
+        $projectTask = $this->repository->skipPresenter()->findWhere(['project_id'=>$id, 'id'=>$taskId]);
+        return $projectTask->first();
     }
 
     public function update(Request $request, $id, $taskId){

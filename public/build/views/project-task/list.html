@@ -1,0 +1,52 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<form class="form-inline" name="form" role="form" method="POST" ng-submit="save()">
+				<div class="form-group">
+					<label for="" class="col-md-2 control-label">Name</label>
+					<div class="col-md-6">
+						<input type="text" class="form-control" name="name" ng-model="projectTask.name" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-6 col-md-offset-4">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</form>
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					Listagem de Anotações do Projeto
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Start Date</th>
+								<th>Due Date</th>
+								<th>Status</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="o in projectTasks">
+								<td>{{o.id}}</td>
+								<td><a ng-href="#/project/{{o.project_id}}/tasks/{{o.id}}">{{o.name | limitTo: 80}}...</a></td>
+								<td>{{o.start_date}}</td>
+								<td>{{o.due_date}}</td>
+								<td>{{o.status}}</td>
+								<td>
+									<a ng-href="#/project/{{o.project_id}}/tasks/{{o.id}}/edit">Edit</a>
+									<a ng-href="#/project/{{o.project_id}}/tasks/{{o.id}}/remove">Excluir</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

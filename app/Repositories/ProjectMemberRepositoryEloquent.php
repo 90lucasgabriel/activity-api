@@ -9,4 +9,12 @@ class ProjectMemberRepositoryEloquent extends BaseRepository implements ProjectM
     public function model(){
         return ProjectMember::class;
     }
+
+    public function presenter(){
+    	return ProjectMemberPresenter::class;
+    }
+
+    public function boot(){
+    	$this->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+    }
 }

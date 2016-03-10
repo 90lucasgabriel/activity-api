@@ -32,6 +32,7 @@ class ProjectNoteService{
 	//Ao passar os dados do ProjectNotee, criá-lo.
 	public function create(array $data){
 		try{
+			
 			$this->validator->with($data)->passesOrFail();
 
 			return $this->repository->create($data);

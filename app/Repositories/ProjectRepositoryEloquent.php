@@ -34,8 +34,9 @@ class ProjectRepositoryEloquent extends BaseRepository implements ProjectReposit
 	}
 
 	public function findWithOwnerAndMember($userId){
-		$model = new $this->model();
-		return $this->scopeQuery(function($query) use($userId){
+		$class = $this->model();
+		$model = new $class;
+		return $this->scopeQuery(function($query) use($userId, $model){
 
 			return $query
 				->select('projects.*')

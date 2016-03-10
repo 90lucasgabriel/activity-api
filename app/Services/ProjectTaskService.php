@@ -3,6 +3,7 @@
 namespace CodeProject\Services;
 
 use CodeProject\Repositories\ProjectTaskRepository;
+use CodeProject\Repositories\ProjectRepository;
 use CodeProject\Validators\ProjectTaskValidator;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -27,13 +28,14 @@ class ProjectTaskService{
 
 	//Ao passar os dados do ProjectTaske, criá-lo.
 	public function create(array $data){
+		print_r($data);
 		try{
 			$this->validator->with($data)->passesOrFail();
 
-			$project = $this->projectRepository->skipPresenter()->find($data['project_id']);
-			$projectTask = $project->tasks()->create($data);
-			return $projectTask;
-			//return $this->repository->create($data);
+			//$project = $this->projectRepository->skipPresenter()->find($data['project_id']);
+			//$projectTask = $project->tasks()->create($data);
+			//return $projectTask;
+			return $this->repository->create($data);
 		}
 		catch(ValidatorException $e){
 			return [

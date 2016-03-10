@@ -25,8 +25,11 @@ Route::group(['middleware' => 'oauth'], function (){
 
 	Route::resource('client', 'ClientController', ['except' => ['create','edit']]);	
 	Route::resource('project', 'ProjectController');
+	Route::resource('project.member', 'ProjectMemberController', ['except' => ['create','edit', 'update']]);	
+	///project/{project}/member/{member}
 	
 	Route::get('user/authenticated', 		'UserController@authenticated');
+	Route::resource('user', 'UserController', ['except' => ['create','edit']]);	
 
 	Route::group([ 'middleware' => 'check.project.permission','prefix' => 'project/{id}/'], function(){
 
@@ -40,7 +43,7 @@ Route::group(['middleware' => 'oauth'], function (){
 			Route::post('', 			'ProjectNoteController@store');
 		});
 
-		Route::group(['prefix' => 'task'], function(){
+		Route::group(['prefix' => 'tasks'], function(){
 			Route::get('{taskId}', 		'ProjectTaskController@show');
 			Route::put('{taskId}', 		'ProjectTaskController@update');
 			Route::delete('{taskId}', 	'ProjectTaskController@destroy');
