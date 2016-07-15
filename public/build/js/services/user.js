@@ -7,7 +7,7 @@
 	User.$inject = ['$resource','appConfig'];
 
 	function User($resource, appConfig){
-		return $resource(appConfig.baseUrl + '/User', {},
+		return $resource(appConfig.baseUrl + '/user', {},
 		{
 			authenticated: {
 				url: appConfig.baseUrl + '/user/authenticated',

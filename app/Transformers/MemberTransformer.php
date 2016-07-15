@@ -1,8 +1,8 @@
 <?php
 
-namespace \Transformers;
+namespace CodeProject\Transformers;
 
-use \Entities\User;
+use CodeProject\Entities\User;
 use League\Fractal\TransformerAbstract;
 
 class MemberTransformer extends TransformerAbstract{

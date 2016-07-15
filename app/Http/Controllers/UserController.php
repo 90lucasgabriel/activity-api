@@ -14,6 +14,10 @@ class UserController extends Controller
         $this->repository = $repository;
     }
 
+    public function index(){
+        return $this->repository->all();
+    }
+
     public function authenticated(){
         $userId = \Authorizer::getResourceOwnerId();
         return $this->repository->find($userId);

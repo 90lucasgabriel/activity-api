@@ -44,6 +44,7 @@
 
 				console.log($scope.projectTask);
 				ProjectTask.update({
+						id: $routeParams.id,
 						taskId: $scope.projectTask.id
 					},
 					$scope.projectTask, 

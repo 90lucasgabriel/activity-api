@@ -13,7 +13,7 @@ class CheckProjectPermission
 
     public function handle($request, Closure $next){
         $projectId = $request->route('id')?$request->route('id'):$request->route('project');
-        
+
         if($this->service->CheckProjectOwner($projectId) == false){
             return ['error' => 'You haven\'t permission to access this project'];
         }

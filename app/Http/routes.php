@@ -25,7 +25,7 @@ Route::group(['middleware' => 'oauth'], function (){
 
 	Route::resource('client', 'ClientController', ['except' => ['create','edit']]);	
 	Route::resource('project', 'ProjectController');
-	Route::resource('project.member', 'ProjectMemberController', ['except' => ['create','edit', 'update']]);	
+	//Route::resource('project.member', 'ProjectMemberController', ['except' => ['create','edit', 'update']]);	
 	///project/{project}/member/{member}
 	
 	Route::get('user/authenticated', 		'UserController@authenticated');

@@ -20,14 +20,13 @@
 			if($scope.form.$valid){
 				$scope.projectTask.status = appConfig.projectTask.status[0].value;
 				$scope.projectTask.project_id = $routeParams.id;
-		
-				console.log($scope.projectTask);
+				
 				$scope.projectTask.$save(
 					{id: $routeParams.id}
 				)
 				.then(function(){
-					//$scope.projectTask = new ProjectTask();
-					//$scope.loadTask();
+					$scope.projectTask = new ProjectTask();
+					$scope.loadTask();
 				})
 			}
 

@@ -5,7 +5,7 @@ namespace CodeProject\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
-use CodeProject\Entities\ProjectNote;
+use CodeProject\Entities\ProjectMember;
 
 class ProjectMember extends Model implements Transformable
 {

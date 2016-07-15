@@ -4,23 +4,23 @@
 		<div class="panel-body">
 			<div class="col-md-12">
 				<label class="col-md-2 control-label">Project ID:</label>
-				<div class="col-md-10 ">{{projectNote.project_id}}</div>
+				<div class="col-md-10 ">{{projectTask.project_id}}</div>
 			</div>
 			<div class="col-md-12">
 				<label class="col-md-2 control-label">ID:</label>
-				<div class="col-md-10 ">{{projectNote.id}}</div>
+				<div class="col-md-10 ">{{projectTask.id}}</div>
 			</div>
 			<div class="col-md-12">
-				<label class="col-md-2 control-label">Title:</label>
-				<div class="col-md-10 ">{{projectNote.title}}</div>
+				<label class="col-md-2 control-label">Name:</label>
+				<div class="col-md-10 ">{{projectTask.name}}</div>
 			</div>
 			<div class="col-md-12">
-				<label class="col-md-2 control-label">Note:</label>
-				<div class="col-md-10 ">{{projectNote.note}}</div>
+				<label class="col-md-2 control-label">Status:</label>
+				<div class="col-md-10 ">{{projectTask.status}}</div>
 			</div>
 		</div>
 	</div>
 	<div class="">
-		<a ng-href="#/project/{{projectNote.project_id}}/notes" class="btn btn-primary">Voltar</a>
+		<a ng-href="#/project/{{projectTask.project_id}}/tasks" class="btn btn-primary">Voltar</a>
 	</div>
 </div>
