@@ -20,7 +20,10 @@
 			if($scope.form.$valid){
 				$scope.projectTask.status = appConfig.projectTask.status[0].value;
 				$scope.projectTask.project_id = $routeParams.id;
-				
+				$scope.projectTask.start_date = new Date();
+				$scope.projectTask.due_date = new Date();
+		
+				console.log($scope.projectTask);
 				$scope.projectTask.$save(
 					{id: $routeParams.id}
 				)

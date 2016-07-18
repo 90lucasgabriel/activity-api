@@ -8,6 +8,11 @@
 
 	function ProjectTask($resource, $filter, appConfig){
 		function transformData(data){
+			if(angular.isObject(data) && data.hasOwnProperty('start_date')){
+				var o = angular.copy(data);
+				o.start_date = $filter('date')(data.start_date, 'yyyy-MM-dd');
+				return appConfig.utils.transformRequest(o);
+			}
 			if(angular.isObject(data) && data.hasOwnProperty('due_date')){
 				var o = angular.copy(data);
 				o.due_date = $filter('date')(data.due_date, 'yyyy-MM-dd');

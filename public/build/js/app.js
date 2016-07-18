@@ -181,14 +181,13 @@
 
 			//PROJECT MEMBERS ----------------------------------------------------------
 			.when('/project/:id/members/:memberId/remove', {
-				templateUrl: 'build/views/project-member/remove.html',
-				controller:  'ProjectMemberRemoveController'
+			   	templateUrl: 'build/views/project-member/remove.html',
+			   	controller:  'ProjectMemberRemoveController'
 			})
 			.when('/project/:id/members', {
-				templateUrl: 'build/views/project-member/list.html',
-				controller:  'ProjectMemberListController'
+			   	templateUrl: 'build/views/project-member/list.html',
+			   	controller:  'ProjectMemberListController'
 			})
-
 
 			//PROJECT --------------------------------------------------------------
 			.when('/project/new', {

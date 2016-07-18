@@ -26,6 +26,6 @@ class ProjectMemberController extends Controller
     }
 
     public function destroy($id, $memberId){
-        return $this->service->delete($memberId);
+        return $this->service->delete($id,$memberId);
     }
 }

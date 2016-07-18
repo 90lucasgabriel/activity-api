@@ -52,8 +52,7 @@ Route::group(['middleware' => 'oauth'], function (){
 		});
 
 		Route::group(['prefix' => 'member'], function(){
-			Route::get('{memberId}', 	'ProjectMemberController@show');
-			Route::delete('{memberId}', 'ProjectMemberController@destroy');
+			Route::delete('{projectMemberId}', 'ProjectMemberController@destroy');
 			Route::get('', 				'ProjectMemberController@index');
 			Route::post('', 			'ProjectMemberController@store');
 		});

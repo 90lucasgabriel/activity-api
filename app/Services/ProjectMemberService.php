@@ -20,7 +20,24 @@ class ProjectMemberService{
 
 	//Ao passar os dados do ProjectMembere, criá-lo.
 	public function create(array $data){
-		print_r($data);
+		
+		try{
+			$this->validator->with($data)->passesOrFail();
+			//$project = $this->projectRepository->skipPresenter()->find($data['project_id']);
+			//$projectMember = $project->members()->create($data);
+			//return $projectMember;
+			return $this->repository->create($data);
+		}
+		catch(ValidatorException $e){
+			return [
+				'error' 	=> true,
+				'message'	=> $e->getMessageBag()
+			];
+		}		
+	}
+
+	public function show(array $data){
+		
 		try{
 			$this->validator->with($data)->passesOrFail();
 			//$project = $this->projectRepository->skipPresenter()->find($data['project_id']);
@@ -49,9 +66,12 @@ class ProjectMemberService{
 		}
 	}
 
-	public function delete($id){
+	public function delete($projectId, $memberId){
+		$projectMember = $this->repository->findWhere(["project_id"=>$projectId, "member_id"=>$memberId]);
+		$projectMember = $projectMember['data'];
+		$projectMember = $projectMember[0];
 		try{
-			if($this->repository->delete($id)){
+			if($this->repository->delete($projectMember['id'])){
 				return [
 					'error' => false,
 					'message' => 'Member removed'
