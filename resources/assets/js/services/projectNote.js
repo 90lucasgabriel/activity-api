@@ -13,8 +13,17 @@
 				noteId: '@noteId'
 			},
 			{
+				save: {
+					method: 'POST',
+					headers: {
+				        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				    }
+				},
 				update: {
-					method: 'PUT'
+					method: 'PUT',
+					headers: {
+				        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				    }
 				}
 			}
 		);

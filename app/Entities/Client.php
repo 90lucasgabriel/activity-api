@@ -21,7 +21,7 @@ class Client extends Model implements Transformable
     	'obs'
     ];
 
-    public function project(){
+    public function projects(){
 		return $this->hasMany(Project::class);
     }
 

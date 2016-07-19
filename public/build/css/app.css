@@ -2987,3 +2987,12 @@ only screen and (min-device-pixel-ratio : 1.5) {
 
 
 /*# sourceMappingURL=app.css.map*/
+
+
+.header-global .userinfo{
+  display: inline;
+  margin: 4px;
+  padding: 0 10px;
+  color: #D9D7D8;
+  font-size: .85em;
+}

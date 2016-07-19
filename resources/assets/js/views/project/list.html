@@ -20,7 +20,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="o in projects">
+							<tr dir-paginate="o in projects | itemsPerPage: projectsPerPage" total-items="totalProjects" current-page="pagination.current">
 								<td>{{o.project_id}}</td>
 								<td>
 									<a ng-href="#/project/{{o.project_id}}">{{o.name | limitTo: 80}}...</a>
@@ -35,6 +35,7 @@
 							</tr>
 						</tbody>
 					</table>
+					<dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
 				</div>
 			</div>
 		</div>

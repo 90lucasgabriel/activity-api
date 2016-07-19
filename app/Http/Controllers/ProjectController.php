@@ -30,8 +30,9 @@ class ProjectController extends Controller
         $this->middleware('check.project.permission', ['except' => ['index', 'store', 'update', 'destroy']]);
     }
 
-    public function index(){
-       return $this->repository->with(['members', 'client', 'owner'])->findWithOwnerAndMember(\Authorizer::getResourceOwnerId());
+    public function index(Request $request){
+       //return $this->repository->with(['members', 'client', 'owner'])->findWithOwnerAndMember(\Authorizer::getResourceOwnerId());
+       return $this->repository->with(['members', 'client', 'owner'])->findOwner(\Authorizer::getResourceOwnerId());
     }
 
     public function store(Request $request){

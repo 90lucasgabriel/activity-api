@@ -1,0 +1,61 @@
+
+<header class="header-global">
+    <div class="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-2">
+                    <a href="#/home.html" class="brand">
+                        <img src="build/images/logo.png" alt=""/>
+                        <span class="text">Project Manager</span>
+                    </a> <!-- /brand -->
+                </div>
+                <div class="col-sm-6">
+                    <menu class="menu" menu-activated>
+                        <li>
+                            <a href="#/home">
+                                <i class="fa fa-home"></i> Painel
+                            </a>
+                        </li>
+                        <li data-match-route="/project.*">
+                        <a href="#/project/dashboard">
+                                <i class="flaticon-data-analytics1"></i> Projetos
+                            </a>
+                        </li>
+                        <li data-match-route="/client.*" >
+                            <a ng-href="#/clients/dashboard" class="actived">
+                                <i class="flaticon-office-worker2"></i> Clientes
+                            </a>
+                        </li>
+                    </menu> <!-- /menu -->
+                </div>
+                <div class="col-sm-2">
+                    <form action="" class="form-inline" role="form">
+                        <input type="text" name="q" placeholder="Busca" />
+                        <button type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form> <!-- /form-search -->
+                </div>
+                <div class="col-sm-2">
+                    <a href="" class="userinfo">
+                        <i class="avatar flaticon-user7"></i>
+                        Olá, {{user.name}}
+                    </a>
+                    <a href="#/logout" class="userinfo">
+                        <i class="avatar flaticon-user7"></i>
+                        Sair
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /top -->
+    <div class="bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="h3">{{pageTitle}}</h1>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /bottom -->
+</header> <!-- /header-global -->
