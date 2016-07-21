@@ -28,7 +28,7 @@ class ProjectTaskService{
 
 	//Ao passar os dados do ProjectTaske, criá-lo.
 	public function create(array $data){
-		print_r($data);
+		
 		try{
 			$this->validator->with($data)->passesOrFail();
 

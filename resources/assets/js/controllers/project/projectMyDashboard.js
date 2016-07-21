@@ -2,11 +2,11 @@
 	"use strict";
 
 	var app = angular.module('app.controllers');
-	app.controller('ProjectDashboardController', ProjectDashboardController);
+	app.controller('ProjectMyDashboardController', ProjectMyDashboardController);
 
-	ProjectDashboardController.$inject = ['$scope', '$location', '$routeParams', 'Project'];
+	ProjectMyDashboardController.$inject = ['$scope', '$location', '$routeParams', 'Project'];
 
-	function ProjectDashboardController($scope, $location, $routeParams, Project){
+	function ProjectMyDashboardController($scope, $location, $routeParams, Project){
 		$scope.project = {};
 		$scope.tab = [
 				true,
@@ -15,7 +15,7 @@
 				false,
 			];
 
-		$scope.project = Project.query({
+		$scope.project = Project.queryIsMember({
 			orderBy: 'created_at',
 			sortedBy: 'desc',
 			limit: 8

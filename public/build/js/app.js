@@ -4,7 +4,7 @@
 	var app = angular.module('app', [
 		'ngRoute', 
 		'app.controllers', 'app.services', 'app.filters', 'app.directives', 
-		'angular-oauth2', 'ui.bootstrap.typeahead', 'ui.bootstrap.datepicker','ui.bootstrap.tpls', 'ngFileUpload', 'ui.bootstrap.modal', 'http-auth-interceptor', 'angularUtils.directives.dirPagination', 'ui.bootstrap.tabs'
+		'angular-oauth2', 'ui.bootstrap.typeahead', 'ui.bootstrap.datepicker','ui.bootstrap.tpls', 'ngFileUpload', 'ui.bootstrap.modal', 'http-auth-interceptor', 'angularUtils.directives.dirPagination', 'ui.bootstrap.tabs', 'pusher-angular',  'ui-notification'
 	]);
 
 	angular.module('app.controllers', ['ngMessages', 'angular-oauth2']);
@@ -55,7 +55,8 @@
 
 					return data;
 				}
-			}
+			},
+			pusherKey: '3c9f290db4a95d86e730'
 		};
 
 		return {
@@ -209,6 +210,11 @@
 				controller:  'ProjectDashboardController',
 				title: 'Projects'
 			})
+			.when('/project/my-dashboard', {
+				templateUrl: 'build/views/project/myDashboard.html',
+				controller:  'ProjectMyDashboardController',
+				title: 'My Projects'
+			})
 			.when('/project/:id/edit', {
 				templateUrl: 'build/views/project/edit.html',
 				controller:  'ProjectEditController'
@@ -224,6 +230,10 @@
 			.when('/project', {
 				templateUrl: 'build/views/project/list.html',
 				controller:  'ProjectListController'
+			})
+			.otherwise({
+				redirectTo: '/home',
+				title: "Dashboard"
 			});
 			
 
@@ -244,15 +254,49 @@
 		}])
 
 
-app.run(['$rootScope', '$location', '$window', '$http', '$modal', 'httpBuffer', 'OAuth', function($rootScope, $location, $window, $http, $modal, httpBuffer,  OAuth) {
+app.run([
+		'$rootScope', '$location', '$window', '$http', '$modal', '$cookies', '$pusher',
+		'httpBuffer', 'OAuth', 'appConfig','Notification',
+	function(
+		$rootScope, $location, $window, $http, $modal, $cookies, $pusher, 
+		httpBuffer,  OAuth, appConfig, Notification) {
+	$rootScope.$on('pusher-build', function(event, data){
+			if(OAuth.isAuthenticated()){
+				if(!window.client){
+					window.client = new Pusher(appConfig.pusherKey);
+					var pusher = $pusher(window.client);
+					var channel = pusher.subscribe('user.' + $cookies.getObject('user').id);
+					channel.bind('CodeProject\\Events\\TaskWasIncluded', function(data) {
+						var name = data.task.name;
+  						Notification.success('Tarefa ' + name + ' foi incluída');
+					});
+				}
+			}
+	});
+
+	$rootScope.$emit('pusher-build', {});
+	//$rootScope.$emit('pusher-destroy', {});
+
+	$rootScope.$on('pusher-destroy', function(event, data){
+		
+			if(window.client){
+				window.client.disconnect();
+				window.client = null;
+			}
+		
+	});
+
 	$rootScope.$on('$routeChangeStart', function(event, next, current){
-		$rootScope.pageTitle = current.$$route.title;
+		if(next) $rootScope.pageTitle = next.$$route.title;
 		if(next.$$route.originalPath != '/login'){
 			if(!OAuth.isAuthenticated()){
 				$location.path('/login');
 			}
 		}
+		$rootScope.$emit('pusher-build', {});
+		//$rootScope.$emit('pusher-destroy', {});
 	});
+
 
 	$rootScope.$on('oauth:error', function (event, data){
 			// Ignore `invalid_grant` error - should be catched on `LoginController`.

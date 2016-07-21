@@ -49,7 +49,13 @@
 				},
 				query:{
 					isArray: false
-				}
+				},
+				queryIsMember:{
+					method: 'GET',
+					url: appConfig.baseUrl + '/project/queryIsMember',
+					isArray: false
+				},
+
 			}
 		);
 	};

@@ -24,7 +24,9 @@ Route::post('oauth/access_token', function(){
 Route::group(['middleware' => 'oauth'], function (){
 
 	Route::resource('client', 'ClientController', ['except' => ['create','edit']]);	
+	Route::get('project/queryIsMember', 		'ProjectController@queryIsMember');
 	Route::resource('project', 'ProjectController');
+
 	//Route::resource('project.member', 'ProjectMemberController', ['except' => ['create','edit', 'update']]);	
 	///project/{project}/member/{member}
 	

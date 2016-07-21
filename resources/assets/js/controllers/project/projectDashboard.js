@@ -7,9 +7,13 @@
 	ProjectDashboardController.$inject = ['$scope', '$location', '$routeParams', 'Project'];
 
 	function ProjectDashboardController($scope, $location, $routeParams, Project){
-		$scope.project = {
-
-		};
+		$scope.project = {};
+		$scope.tab = [
+				true,
+				false,
+				false,
+				false,
+			];
 
 		$scope.project = Project.query({
 			orderBy: 'created_at',
@@ -24,13 +28,6 @@
 		}
 
 		$scope.showTab = function(value){
-			$scope.tab = [
-				false,
-				false,
-				false,
-				false,
-			];
-
 			for(var i=0; i<$scope.tab.length; i++){
 				if(value == i) $scope.tab[i] = true;
 				else $scope.tab[i] = false;

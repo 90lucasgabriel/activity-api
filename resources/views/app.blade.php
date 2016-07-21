@@ -8,6 +8,7 @@
 	@if(Config::get('app.debug'))
 		<link href="{{asset('build/css/font-awesome.css')}}" rel="stylesheet" />
 		<link href="{{asset('build/css/flaticon.css')}}" rel="stylesheet" />
+		<link href="{{asset('build/css/vendor/angular-ui-notification.min.css')}}" rel="stylesheet" />
 		<link href="{{asset('build/css/components.css')}}" rel="stylesheet" />
 		<link href="{{asset('build/css/app.css')}}" rel="stylesheet" />
 	@else
@@ -43,6 +44,10 @@
 		<script src="{{ asset('build/js/vendor/ng-file-upload.min.js') }}"></script>
 		<script src="{{ asset('build/js/vendor/http-auth-interceptor.js') }}"></script>
 		<script src="{{ asset('build/js/vendor/dirPagination.js') }}"></script>
+		<script src="{{ asset('build/js/vendor/pusher.js') }}"></script>
+		<script src="{{ asset('build/js/vendor/pusher-angular.min.js') }}"></script>
+		<script src="{{ asset('build/js/vendor/angular-ui-notification.min.js') }}"></script>
+
 
 		<!-- CONTROLLERS -->
 		<script src="{{ asset('build/js/app.js') }}"></script>
@@ -65,6 +70,7 @@
 		<script src="{{ asset('build/js/controllers/project/projectRemove.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project/projectView.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project/projectDashboard.js') }}"></script>
+		<script src="{{ asset('build/js/controllers/project/projectMyDashboard.js') }}"></script>
 		
 		<script src="{{ asset('build/js/controllers/project-note/projectNoteList.js') }}"></script>
 		<script src="{{ asset('build/js/controllers/project-note/projectNoteNew.js') }}"></script>
@@ -111,6 +117,7 @@
 	@else
 		<script src="{{ elixir('js/all.js') }}"></script>
 	@endif
+	
 </body>
 </html>
 

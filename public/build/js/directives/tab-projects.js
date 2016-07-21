@@ -10,7 +10,6 @@ angular.module('app.directives')
                $(element).find('.active').removeClass('active');
                tabContent.find('.active').removeClass('active');
                tabContent.find('[id='+ a.attr("aria-controls") + ']').addClass('active');
-               console.log('[id='+ a.attr("aria-controls") + ']');
             	a.addClass('active');
 
         	}

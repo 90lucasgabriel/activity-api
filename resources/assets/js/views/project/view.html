@@ -1,7 +1,7 @@
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
 		<div class="panel-heading">Detalhes do Projeto</div>
-		<div class="panel-body">
+		<div class="panel-body" ng-if="!project.error">			
 			<div class="col-md-12">
 				<label class="col-md-2 control-label">Project ID:</label>
 				<div class="col-md-10 ">{{project.project_id}}</div>
@@ -13,6 +13,11 @@
 			<div class="col-md-12">
 				<label class="col-md-2 control-label">Client:</label>
 				<div class="col-md-10 ">{{project.client.data.name}}</div>
+			</div>
+		</div>
+		<div class="panel-body" ng-if="project.error">			
+			<div class="col-md-12">
+				{{project.error}}
 			</div>
 		</div>
 	</div>

@@ -5,11 +5,11 @@
 	app.controller('ProjectTaskListController', ProjectTaskListController);
 
 	ProjectTaskListController.$inject = [
-		'$scope', '$routeParams', 
+		'$scope', '$routeParams', '$rootScope',
 		'appConfig', 'ProjectTask'];
 
 	function ProjectTaskListController(
-		$scope, $routeParams, 
+		$scope, $routeParams, $rootScope,
 		appConfig, ProjectTask){
 		$scope.projectTask = new ProjectTask();
 		$scope.projectTask.project_id = $routeParams.id;
@@ -23,11 +23,11 @@
 				$scope.projectTask.start_date = new Date();
 				$scope.projectTask.due_date = new Date();
 		
-				console.log($scope.projectTask);
 				$scope.projectTask.$save(
 					{id: $routeParams.id}
 				)
 				.then(function(){
+					//$rootScope.$emit('pusher-build', {next: '/tasks', data: $scope.projectTask});
 					$scope.projectTask = new ProjectTask();
 					$scope.loadTask();
 				})

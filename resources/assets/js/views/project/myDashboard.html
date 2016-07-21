@@ -1,0 +1,155 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-9">
+			
+			<div class="panel-body">
+				<section class="main">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="boxed-manager">
+									<div class="boxed-manager-menu">
+										<ul class="boxed-manager-menu-nav">
+											<li class="boxed-manager-menu-nav-header">
+												<h3 class="h4">
+													Projetos
+
+													<div class="btn-group pull-right">
+														<a href="#/project" class="btn btn-primary btn-sm text-upper">
+															<small>Ver todos</small>
+														</a>
+														<a href="#/project/new" class="btn btn-default btn-sm">
+															<i class="fa fa-plus"></i>
+														</a>
+													</div>
+												</h3>
+											</li>
+											<li class="boxed-manager-menu-nav-item" ng-repeat="o in projects">
+												<a href="" class="actived" ng-click="showProject(o)">
+													<header>
+														<h4 class="h4 text-boulder">{{o.name}}</h4>
+														<small class="text-upper text-silver">{{o.client.data.name}}</small>
+													</header>
+													<p class="text-danger status">
+														<i class="fa fa-circle"></i> Atrasado
+													</p>
+												</a>
+											</li>
+										</ul>
+									</div>
+									<div class="boxed-manager-main arrow">
+										<div class="boxed-manager-main-header">
+											<h4 class="h4">
+												{{project.name}} <small>({{project.progress}}%)</small>
+
+												<div class="btn-group pull-right">
+													<a href="#/project/{{project.id}}/edit" class="btn btn-default btn-xs" title="Editar">
+														<i class="fa fa-pencil"></i>
+													</a>
+													<a href="#/project/{{project.id}}/remove" class="btn btn-danger btn-xs" title="Apagar">
+														<i class="fa fa-trash"></i>
+													</a>
+												</div>
+											</h4>
+										</div>
+										<div class="boxed-manager-main-body">
+											<div class="btn-group" role="tablist" tab-project>
+												<a     href="" class="btn btn-default active"
+												aria-controls="detalhes" ng-click="showTab(0)">
+													Detalhes
+												</a>
+												<a     href="" class="btn btn-default"
+												aria-controls="tarefas" ng-click="showTab(1)">
+													Tarefas
+												</a>
+												<a     href="" class="btn btn-default"
+												aria-controls="arquivos" ng-click="showTab(2)">
+													Arquivos
+												</a>
+												<a     href="" class="btn btn-default"
+												aria-controls="anotacoes" ng-click="showTab(3)">
+													Anotações
+												</a>
+											</div>
+
+
+											<div class="tab-content">
+												<div  ng-show="tab[0]">
+													<p>{{project.description}}</p>
+												</div>
+												<div  ng-show="tab[1]">
+													<div class="task-list">
+														<ul class="task-list-body">
+															<li ng-repeat="o in project.tasks.data">
+																<label>
+																	<input type="checkbox" name="" id="" /> {{o.name}}
+																</label>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div  ng-show="tab[2]">
+													<div class="files-list-blocks">
+														<project-file-download id-project="{{o.project_id}}" id-file="{{o.id}}" ng-repeat="o in project.files.data"></project-file-download>
+														<a ng-href="">
+															<img src="build/images/icons/ico-ai.png" />
+														</a>
+													</div>
+												</div>
+												<div  ng-show="tab[3]">
+													<p></p>
+												</div>   
+											</div>
+										</div>
+					</div>
+					<div class="boxed-manager-info">
+						<div class="boxed-manager-info-header">
+							<h4 class="h4">Estatísticas do projeto</h4>
+						</div>
+						<div class="boxed-manager-info-body">
+							<div class="boxed-manager-info-body-chart text-center">
+								<div class="radial-progress radial-progress-lg radial-progress-danger" data-progress="{{project.progress}}">
+									<div class="circle">
+										<div class="mask full">
+											<div class="fill"></div>
+										</div>
+										<div class="mask half">
+											<div class="fill"></div>
+											<div class="fill fix"></div>
+										</div>
+										<div class="shadow"></div>
+									</div>
+									<div class="inset">
+										<div class="percentage">
+											<div class="numbers">{{project.progress}}</div>
+										</div>
+									</div>
+								</div>
+
+								Progresso esperado: 100%
+							</div>
+							<ul class="list-styled">
+								<li class="list-styled-header text-upper text-center">
+									Cliente
+								</li>
+								<li class="text-center text-silver">{{project.client.data.name}}</li>
+								<li class="list-styled-header text-upper text-center">
+									Data de entrega
+								</li>
+								<li class="text-center text-silver">{{project.due_date}}</li>
+								<li class="list-styled-header text-upper text-center">
+									Tarefas (12)
+								</li>
+								<li class="text-center text-silver">9 terefas em aberto</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+</div>
+</div>
+</div>
+</div>

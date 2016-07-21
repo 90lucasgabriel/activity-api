@@ -12,7 +12,7 @@
                 <div class="col-sm-6">
                     <menu class="menu" menu-activated>
                         <li>
-                            <a href="#/home">
+                            <a href="#/home" class="actived">
                                 <i class="fa fa-home"></i> Painel
                             </a>
                         </li>
@@ -21,8 +21,13 @@
                                 <i class="flaticon-data-analytics1"></i> Projetos
                             </a>
                         </li>
+                        <li data-match-route="/project.*">
+                        <a href="#/project/my-dashboard">
+                                <i class="flaticon-data-analytics1"></i> Meus Projetos
+                            </a>
+                        </li>
                         <li data-match-route="/client.*" >
-                            <a ng-href="#/clients/dashboard" class="actived">
+                            <a ng-href="#/clients/dashboard">
                                 <i class="flaticon-office-worker2"></i> Clientes
                             </a>
                         </li>
