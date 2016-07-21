@@ -5,7 +5,7 @@
 				<div class="panel-heading">
 					Edit project
 				</div>
-				<div class="panel-body">
+				<div class="panel-body" ng-if="!project.error">
 					<form class="form-horizontal" role="form" name="form" method="POST" ng-submit="save()">
 						<div class="form-group" ng-class="{'has-error': !form.name.$valid && form.name.$touched}">
 							<label class="col-md-4 control-label">name</label>
@@ -83,6 +83,11 @@
 							<button type="submit" class="btn btn-primary">Salvar</button>
 						</div>
 					</form>
+				</div>
+				<div class="panel-body" ng-if="project.error">			
+					<div class="col-md-12">
+						{{project.error}}
+					</div>
 				</div>
 			</div>
 		</div>

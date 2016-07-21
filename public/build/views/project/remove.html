@@ -1,7 +1,7 @@
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
 		<div class="panel-heading">Exclusão do Projeto</div>
-		<div class="panel-body">
+		<div class="panel-body" ng-if="!project.error">
 			<p>Deseja excluir esse projeto?</p>
 			<ul>
 				<li>Id: {{project.project_id}}</li>
@@ -10,6 +10,11 @@
 			</ul>
 			<div class="col-md-6">
 				<button type="button" class="btn btn-danger" ng-click="remove()">Excluir</button>
+			</div>
+		</div>
+		<div class="panel-body" ng-if="project.error">			
+			<div class="col-md-12">
+				{{project.error}}
 			</div>
 		</div>
 	</div>
