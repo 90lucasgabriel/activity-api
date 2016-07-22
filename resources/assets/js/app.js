@@ -268,7 +268,19 @@ app.run([
 					var channel = pusher.subscribe('user.' + $cookies.getObject('user').id);
 					channel.bind('CodeProject\\Events\\TaskWasIncluded', function(data) {
 						var name = data.task.name;
-  						Notification.success('Tarefa ' + name + ' foi incluída');
+						var date = data.task.start_date;
+  						Notification.success('Nova Tarefa: ' + name + ' ('+date+')');
+					});
+					channel.bind('CodeProject\\Events\\TaskWasUpdated', function(data) {
+						var name = data.task.name;
+						var date = data.task.start_date;
+						console.log(data.task);
+						if(data.task.status==1){
+  							Notification.info('Tarefa alterada: ' + name + ' ('+date+')');
+						}
+						else{
+							Notification.info('Tarefa concluída: ' + name + ' ('+date+')');	
+						}
 					});
 				}
 			}

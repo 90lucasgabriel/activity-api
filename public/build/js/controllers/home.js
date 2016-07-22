@@ -35,9 +35,23 @@
 					$scope.tasks.splice($scope.tasks.length-1,1);
 				}
 				$timeout(function(){
+					data.task.message = "Nova tarefa";
 					$scope.tasks.unshift(data.task);
 				}, 300);
 			}
-			);	
+		);
+
+		channel.bind('CodeProject\\Events\\TaskWasUpdated', 
+			function(data){
+				if($scope.tasks.length == 6) {
+					$scope.tasks.splice($scope.tasks.length-1,1);
+				}
+				$timeout(function(){
+					if(data.task.status==1) data.task.message = "Tarefa alterada";
+					else data.task.message = "Tarefa concluída"
+					$scope.tasks.unshift(data.task);
+				}, 300);
+			}
+		);	
 	};
 })();

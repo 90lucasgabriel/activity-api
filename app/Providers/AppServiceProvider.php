@@ -7,6 +7,7 @@ use Illuminate\Support\Facades;
 use CodeProject\Entities\ProjectTask;
 use Illuminate\Support\Facades\Event;
 use CodeProject\Events\TaskWasIncluded;
+use CodeProject\Events\TaskWasUpdated;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(){
         ProjectTask::created(function($task){
             Event::fire(new TaskWasIncluded($task));
+        });
+        ProjectTask::updated(function($task){
+            Event::fire(new TaskWasUpdated($task));
         });
     }
 

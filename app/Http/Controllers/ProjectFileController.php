@@ -5,15 +5,21 @@ namespace CodeProject\Http\Controllers;
 use CodeProject\Repositories\ProjectFileRepository;
 use CodeProject\Services\ProjectFileService;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Filesystem\Factory;
 
 class ProjectFileController extends Controller{
 
     private $repository;
     private $service;
+    /**
+    * @var \Illuminate\Contracts\Filesystem\Factory
+    */
+    private $storage;
 
-    public function __construct(ProjectFileRepository $repository, ProjectFileService $service){
+    public function __construct(ProjectFileRepository $repository, ProjectFileService $service, Factory $storage){
         $this->repository = $repository;
         $this->service = $service;
+        $this->storage = $storage;
     }
 
     public function index($id){
@@ -37,13 +43,15 @@ class ProjectFileController extends Controller{
         //if($this->service->checkProjectPermissions($id)==false){
         //    return ['error' => 'Access Forbidden'];
         //}
+        $model = $this->repository->skipPresenter()->find($fileId);
         $filePath = $this->service->getFilePath($fileId);
         $fileContent = file_get_contents($filePath);
         $file64 = base64_encode($fileContent);
         return [
             'file' => $file64,
             'size' => filesize($filePath),
-            'name' => $this->service->getFileName($fileId)
+            'name' => $this->service->getFileName($fileId),
+            'mime_type' => $this->storage->mimeType($model->getFileName())
         ];
     }
 

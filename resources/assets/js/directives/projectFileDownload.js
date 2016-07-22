@@ -5,11 +5,11 @@
 	app.directive('projectFileDownload', projectFileDownload);
 
 	projectFileDownload.$inject = [
-		'$timeout',
+		'$timeout', '$window',
 		'appConfig', 'ProjectFile'];
 
 	function projectFileDownload(
-		$timeout,
+		$timeout, $window,
 		appConfig, ProjectFile){
 
 		return {
@@ -21,9 +21,11 @@
 					scope.$on('salvar-arquivo', function(event, data){
 						$(anchor).removeClass('disabled');
 						$(anchor).text('Download');
-						$(anchor).attr({
-							href: 'data:application-octa-stream;base64,' + data.file,
-							download: data.name
+						blobUtil.base64StringToBlob(data.file).then(function (blob) {
+							$(anchor).attr({
+								href: $window.URL.createObjectURL(blob, data.mime_type),
+								download: data.name
+							});
 						});
 
 						$timeout(function() 

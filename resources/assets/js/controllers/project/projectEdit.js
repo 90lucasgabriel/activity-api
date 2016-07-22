@@ -5,11 +5,11 @@
 	app.controller('ProjectEditController', ProjectEditController);
 
 	ProjectEditController.$inject = [
-		'$scope', '$routeParams', '$location', '$cookies', 
+		'$scope', '$routeParams', '$location', '$cookies', '$q', '$filter',
 		'Project', 'Client', 'appConfig'];
 
 	function ProjectEditController(
-		$scope, $routeParams, $location, $cookies, 
+		$scope, $routeParams, $location, $cookies, $q, $filter,
 		Project, Client, appConfig){
 
 		$scope.project = Project.get({id: $routeParams.id});
@@ -46,10 +46,19 @@
 		};
 
 		$scope.getClients = function(name){
-			return Client.query({
+			var deferred = $q.defer();
+
+			Client.query({
 				search: name,
 				searchFields: 'name:like'
-			}).$promise;
+			}, function(data){
+				var result = $filter('limitTo')(data.data, 5);
+				deferred.resolve(result);
+			}, function(response){
+				deferred.reject(response);
+			});
+
+			return deferred.promise;
 		};
 
 		$scope.selectClient = function(item){
