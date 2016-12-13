@@ -8,42 +8,34 @@
 
 ## Activity
 This is a sample Laravel + AngularJS application.
+Make sure you have PHP, MySQL and Apache installed.
 
-Install typecript
-```
-$ npm install -g typescript
-```
-
-Install Ionic CLI
-```
-$ npm install -g ionic
-```
-
-Install Cordova
-```
-$ npm install -g cordova
-```
 
 Clone this repo
 ```
-$ git clone https://github.com/gangachris/githubionic
+$ git clone https://github.com/90lucasgabriel/activity
 ```
-cd into the githubionic folder run npm install
+Fix php artisan
+```
+$ composer update --no-scripts
+```
+Generate Laravel App Key
+```
+$ php artisan key:generate
+```
+>Create database
+>Insert into .env: database, user and password.
+Seed database
+```
+$ php artisan migrate:refresh --seed
+```
+cd into the activity folder run npm install
 ```
 $ npm install
 ```
-
-You may need to restore the state of the ionic project, especially if you plan on using cordova.
-```
-ionic prepare
-```
-Build the app
-```
-$ npm run build
-```
 Serve the app
 ```
-$ ionic serve
+$ php artisan serve
 ```
 
-Head to http://localhost:8100 in your browser and you'll see the app running
+Head to http://localhost:8000 in your browser and you'll see the app running
