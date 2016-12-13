@@ -15,8 +15,8 @@ Generate Laravel App Key
 ```
 $ php artisan key:generate
 ```
--Create database
--Insert into .env: database, user and password.
+- Create database
+- Insert into .env: database, user and password.
 
 Seed database
 ```
