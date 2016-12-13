@@ -6,22 +6,44 @@
 [![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Activity
+This is a sample Laravel + AngularJS application.
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Install typecript
+```
+$ npm install -g typescript
+```
 
-## Official Documentation
+Install Ionic CLI
+```
+$ npm install -g ionic
+```
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Install Cordova
+```
+$ npm install -g cordova
+```
 
-## Contributing
+Clone this repo
+```
+$ git clone https://github.com/gangachris/githubionic
+```
+cd into the githubionic folder run npm install
+```
+$ npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+You may need to restore the state of the ionic project, especially if you plan on using cordova.
+```
+ionic prepare
+```
+Build the app
+```
+$ npm run build
+```
+Serve the app
+```
+$ ionic serve
+```
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-### License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+Head to http://localhost:8100 in your browser and you'll see the app running
